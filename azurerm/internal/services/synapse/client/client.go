@@ -3,6 +3,7 @@ package client
 import (
 	"fmt"
 
+	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2019-06-01-preview/artifacts"
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2019-06-01-preview/managedvirtualnetwork"
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2020-02-01-preview/accesscontrol"
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/mgmt/2019-06-01-preview/synapse"
@@ -76,6 +77,16 @@ func (client Client) ManagedPrivateEndpointsClient(workspaceName, synapseEndpoin
 	managedPrivateEndpointsClient := managedvirtualnetwork.NewManagedPrivateEndpointsClient(endpoint)
 	managedPrivateEndpointsClient.Client.Authorizer = client.synapseAuthorizer
 	return &managedPrivateEndpointsClient, nil
+}
+
+func (client Client) PipelinesClient(workspaceName, synapseEndpointSuffix string) (*artifacts.PipelineClient , error) {
+	if client.synapseAuthorizer == nil {
+		return nil, fmt.Errorf("Synapse is not supported in this Azure Environment")
+	}
+	endpoint := buildEndpoint(workspaceName, synapseEndpointSuffix)
+	pipelineClient := artifacts.NewPipelineClient(endpoint)
+	pipelineClient.Client.Authorizer = client.synapseAuthorizer
+	return &pipelineClient, nil
 }
 
 func buildEndpoint(workspaceName string, synapseEndpointSuffix string) string {
