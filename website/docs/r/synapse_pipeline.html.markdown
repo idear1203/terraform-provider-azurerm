@@ -51,7 +51,7 @@ resource "azurerm_synapse_firewall_rule" "example" {
 }
 
 resource "azurerm_synapse_pipeline" "example" {
-  name                = "example"
+  name                 = "example"
   synapse_workspace_id = azurerm_synapse_workspace.example.id
 
   depends_on = [azurerm_synapse_firewall_rule.example]
@@ -62,7 +62,7 @@ resource "azurerm_synapse_pipeline" "example" {
 
 ```hcl
 resource "azurerm_synapse_pipeline" "example" {
-  name                = "example"
+  name                 = "example"
   synapse_workspace_id = azurerm_synapse_workspace.example.id
   variables = {
     "bob" = "item1"

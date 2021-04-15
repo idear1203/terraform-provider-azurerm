@@ -144,7 +144,7 @@ func (r PipelineResource) basic(data acceptance.TestData) string {
 	%s
 
 resource "azurerm_synapse_pipeline" "test" {
-  name                = "acctest%d"
+  name                 = "acctest%d"
   synapse_workspace_id = azurerm_synapse_workspace.test.id
 
   depends_on = [azurerm_synapse_firewall_rule.test]
@@ -158,10 +158,10 @@ func (r PipelineResource) update1(data acceptance.TestData) string {
 	%s
 
 resource "azurerm_synapse_pipeline" "test" {
-  name                = "acctest%d"
+  name                 = "acctest%d"
   synapse_workspace_id = azurerm_synapse_workspace.test.id
-  annotations         = ["test1", "test2", "test3"]
-  description         = "test description"
+  annotations          = ["test1", "test2", "test3"]
+  description          = "test description"
 
   parameters = {
     test = "testparameter"
@@ -183,10 +183,10 @@ func (r PipelineResource) update2(data acceptance.TestData) string {
 	%s
 
 resource "azurerm_synapse_pipeline" "test" {
-  name                = "acctest%d"
+  name                 = "acctest%d"
   synapse_workspace_id = azurerm_synapse_workspace.test.id
-  annotations         = ["test1", "test2"]
-  description         = "test description2"
+  annotations          = ["test1", "test2"]
+  description          = "test description2"
 
   parameters = {
     test  = "testparameter"
@@ -210,7 +210,7 @@ func (r PipelineResource) activities(data acceptance.TestData) string {
 	%s
 
 resource "azurerm_synapse_pipeline" "test" {
-  name                = "acctest%d"
+  name                 = "acctest%d"
   synapse_workspace_id = azurerm_synapse_workspace.test.id
   variables = {
     "bob" = "item1"
@@ -241,7 +241,7 @@ func (r PipelineResource) activitiesUpdated(data acceptance.TestData) string {
 	%s
 
 resource "azurerm_synapse_pipeline" "test" {
-  name                = "acctest%d"
+  name                 = "acctest%d"
   synapse_workspace_id = azurerm_synapse_workspace.test.id
   variables = {
     "bob" = "item1"
