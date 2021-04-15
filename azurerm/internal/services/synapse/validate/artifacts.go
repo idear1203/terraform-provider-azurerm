@@ -17,14 +17,3 @@ func SynapsePipelineAndTriggerName() schema.SchemaValidateFunc {
 		return warnings, errors
 	}
 }
-
-//func WorkspaceName() schema.SchemaValidateFunc {
-//	return func(i interface{}, k string) (warnings []string, errors []error) {
-//		value := i.(string)
-//		if !regexp.MustCompile(`^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$`).MatchString(value) {
-//			errors = append(errors, fmt.Errorf("invalid workspace_name"))
-//		}
-//
-//		return warnings, errors
-//	}
-//}
