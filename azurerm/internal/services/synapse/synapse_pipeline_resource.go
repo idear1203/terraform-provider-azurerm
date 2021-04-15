@@ -247,6 +247,10 @@ func resourceSynapsePipelineDelete(d *schema.ResourceData, meta interface{}) err
 	}
 
 	client, err := synapseClient.PipelinesClient(id.WorkspaceName, environment.SynapseEndpointSuffix)
+	if err != nil {
+		return err
+	}
+
 	workspaceName := id.WorkspaceName
 	name := id.Name
 	resourceGroupName := id.ResourceGroup
