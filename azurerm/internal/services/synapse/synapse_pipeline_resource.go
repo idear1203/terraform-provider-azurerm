@@ -132,7 +132,7 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 	if v, ok := d.GetOk("activities_json"); ok {
 		activities, err := deserializeSynapsePipelineActivities(v.(string))
 		if err != nil {
-			return fmt.Errorf("parsing 'activities_json' for %s", id, err)
+			return fmt.Errorf("parsing 'activities_json' for %s", err)
 		}
 		pipeline.Activities = activities
 	}
