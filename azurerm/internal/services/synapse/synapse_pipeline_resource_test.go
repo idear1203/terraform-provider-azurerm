@@ -96,6 +96,21 @@ func TestAccSynapsePipeline_activities(t *testing.T) {
 	})
 }
 
+func TestAccSynapsePipeline_requiresImport(t *testing.T) {
+	data := acceptance.BuildTestData(t, "azurerm_synapse_pipeline", "test")
+	r := PipelineResource{}
+
+	data.ResourceTest(t, r, []resource.TestStep{
+		{
+			Config: r.basic(data),
+			Check: resource.ComposeTestCheckFunc(
+				check.That(data.ResourceName).ExistsInAzure(r),
+			),
+		},
+		data.RequiresImportErrorStep(r.requiresImport),
+	})
+}
+
 func (t PipelineResource) Exists(ctx context.Context, client *clients.Client, state *terraform.InstanceState) (*bool, error) {
 	id, err := parse.PipelineID(state.ID)
 	if err != nil {
@@ -264,6 +279,18 @@ JSON
   depends_on = [azurerm_synapse_firewall_rule.test]
 }
 `, template, data.RandomInteger)
+}
+
+func (r PipelineResource) requiresImport(data acceptance.TestData) string {
+	config := r.basic(data)
+	return fmt.Sprintf(`
+	%s
+
+resource "azurerm_synapse_pipeline" "import" {
+  name                 = azurerm_synapse_pipeline.test.name
+  synapse_workspace_id = azurerm_synapse_pipeline.test.synapse_workspace_id
+}
+`, config)
 }
 
 func (r PipelineResource) template(data acceptance.TestData) string {
