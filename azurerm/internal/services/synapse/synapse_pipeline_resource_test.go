@@ -135,26 +135,6 @@ func (t PipelineResource) Exists(ctx context.Context, client *clients.Client, st
 	return utils.Bool(true), nil
 }
 
-func (t PipelineResource) appendVariableActivityNameIs(expected string) func(input []interface{}) (*bool, error) {
-	return func(input []interface{}) (*bool, error) {
-		if len(input) == 0 || input[0] == nil {
-			return utils.Bool(false), nil
-		}
-
-		val, ok := input[0].(map[string]interface{})
-		if !ok {
-			return nil, fmt.Errorf("nested item was not a dictionary")
-		}
-
-		actual, ok := val["name"].(string)
-		if !ok {
-			return nil, fmt.Errorf("name was not present in the json")
-		}
-
-		return utils.Bool(actual == expected), nil
-	}
-}
-
 func (r PipelineResource) basic(data acceptance.TestData) string {
 	template := r.template(data)
 	return fmt.Sprintf(`
