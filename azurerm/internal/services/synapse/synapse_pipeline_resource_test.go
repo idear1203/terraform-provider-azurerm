@@ -41,20 +41,28 @@ func TestAccSynapsePipeline_update(t *testing.T) {
 			Config: r.update1(data),
 			Check: resource.ComposeTestCheckFunc(
 				check.That(data.ResourceName).ExistsInAzure(r),
-				check.That(data.ResourceName).Key("parameters.%").HasValue("1"),
-				check.That(data.ResourceName).Key("annotations.#").HasValue("3"),
-				check.That(data.ResourceName).Key("description").HasValue("test description"),
-				check.That(data.ResourceName).Key("variables.%").HasValue("2"),
 			),
 		},
+		data.ImportStep(),
 		{
 			Config: r.update2(data),
 			Check: resource.ComposeTestCheckFunc(
 				check.That(data.ResourceName).ExistsInAzure(r),
-				check.That(data.ResourceName).Key("parameters.%").HasValue("2"),
-				check.That(data.ResourceName).Key("annotations.#").HasValue("2"),
-				check.That(data.ResourceName).Key("description").HasValue("test description2"),
-				check.That(data.ResourceName).Key("variables.%").HasValue("3"),
+			),
+		},
+		data.ImportStep(),
+	})
+}
+
+func TestAccSynapsePipeline_complete(t *testing.T) {
+	data := acceptance.BuildTestData(t, "azurerm_synapse_pipeline", "test")
+	r := PipelineResource{}
+
+	data.ResourceTest(t, r, []resource.TestStep{
+		{
+			Config: r.complete(data),
+			Check: resource.ComposeTestCheckFunc(
+				check.That(data.ResourceName).ExistsInAzure(r),
 			),
 		},
 		data.ImportStep(),
@@ -70,8 +78,6 @@ func TestAccSynapsePipeline_activities(t *testing.T) {
 			Config: r.activities(data),
 			Check: resource.ComposeTestCheckFunc(
 				check.That(data.ResourceName).ExistsInAzure(r),
-				check.That(data.ResourceName).Key("activities_json").Exists(),
-				check.That(data.ResourceName).Key("activities_json").ContainsJsonValue(r.appendVariableActivityNameIs("Append variable1")),
 			),
 		},
 		data.ImportStep(),
@@ -79,8 +85,6 @@ func TestAccSynapsePipeline_activities(t *testing.T) {
 			Config: r.activitiesUpdated(data),
 			Check: resource.ComposeTestCheckFunc(
 				check.That(data.ResourceName).ExistsInAzure(r),
-				check.That(data.ResourceName).Key("activities_json").Exists(),
-				check.That(data.ResourceName).Key("activities_json").ContainsJsonValue(r.appendVariableActivityNameIs("Append variable1")),
 			),
 		},
 		data.ImportStep(),
@@ -88,8 +92,6 @@ func TestAccSynapsePipeline_activities(t *testing.T) {
 			Config: r.activities(data),
 			Check: resource.ComposeTestCheckFunc(
 				check.That(data.ResourceName).ExistsInAzure(r),
-				check.That(data.ResourceName).Key("activities_json").Exists(),
-				check.That(data.ResourceName).Key("activities_json").ContainsJsonValue(r.appendVariableActivityNameIs("Append variable1")),
 			),
 		},
 		data.ImportStep(),
@@ -167,6 +169,29 @@ resource "azurerm_synapse_pipeline" "test" {
 `, template, data.RandomInteger)
 }
 
+func (r PipelineResource) complete(data acceptance.TestData) string {
+	template := r.template(data)
+	return fmt.Sprintf(`
+	%s
+
+resource "azurerm_synapse_pipeline" "test" {
+  name                 = "acctest%d"
+  synapse_workspace_id = azurerm_synapse_workspace.test.id
+
+  parameters = {
+    test = "testparameter"
+  }
+
+  variables = {
+    foo = "test1"
+    bar = "test2"
+  }
+
+  depends_on = [azurerm_synapse_firewall_rule.test]
+}
+`, template, data.RandomInteger)
+}
+
 func (r PipelineResource) update1(data acceptance.TestData) string {
 	template := r.template(data)
 	return fmt.Sprintf(`
@@ -213,6 +238,21 @@ resource "azurerm_synapse_pipeline" "test" {
     bar = "test2"
     baz = "test3"
   }
+
+  activities_json = <<JSON
+[
+  {
+    "name": "Append variable1",
+    "type": "AppendVariable",
+    "dependsOn": [],
+    "userProperties": [],
+    "typeProperties": {
+      "variableName": "foo",
+      "value": "something"
+    }
+  }
+]
+JSON
 
   depends_on = [azurerm_synapse_firewall_rule.test]
 }

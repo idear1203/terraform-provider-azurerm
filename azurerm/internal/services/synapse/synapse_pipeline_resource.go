@@ -101,7 +101,6 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 		return err
 	}
 
-	pipelineName := d.Get("name").(string)
 	client, err := synapseClient.PipelinesClient(workspaceId.Name, environment.SynapseEndpointSuffix)
 	if err != nil {
 		return err
@@ -109,15 +108,12 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 
 	log.Printf("[INFO] preparing arguments for Synapse Pipeline creation.")
 
-	resourceGroupName := workspaceId.ResourceGroup
-	name := pipelineName
-	workspaceName := workspaceId.Name
-
+	id := parse.NewPipelineID(workspaceId.SubscriptionId, workspaceId.ResourceGroup, workspaceId.Name, d.Get("name").(string))
 	if d.IsNewResource() {
-		existing, err := client.GetPipeline(ctx, pipelineName, "")
+		existing, err := client.GetPipeline(ctx, id.Name, "")
 		if err != nil {
 			if !utils.ResponseWasNotFound(existing.Response) {
-				return fmt.Errorf("checking for presence of existing Synapse Pipeline %q (Resource Group %q / workspace %q): %s", name, resourceGroupName, workspaceName, err)
+				return fmt.Errorf("checking for present of existing %s: %+v", id, err)
 			}
 		}
 
@@ -136,7 +132,7 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 	if v, ok := d.GetOk("activities_json"); ok {
 		activities, err := deserializeSynapsePipelineActivities(v.(string))
 		if err != nil {
-			return fmt.Errorf("parsing 'activities_json' for Synapse Pipeline %q (Resource Group %q / Workspace %q) ID: %+v", name, resourceGroupName, workspaceName, err)
+			return fmt.Errorf("parsing 'activities_json' for %s", id, err)
 		}
 		pipeline.Activities = activities
 	}
@@ -153,20 +149,15 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 		Pipeline: pipeline,
 	}
 
-	future, err := client.CreateOrUpdatePipeline(ctx, name, config, "")
+	future, err := client.CreateOrUpdatePipeline(ctx, id.Name, config, "")
 	if err != nil {
-		return fmt.Errorf("creating Synapse Pipeline %q (Resource Group %q / Workspace %q): %+v", name, resourceGroupName, workspaceName, err)
+		return fmt.Errorf("creating %s: %+v", id, err)
 	}
 	if err = future.WaitForCompletionRef(ctx, client.Client); err != nil {
-		return fmt.Errorf("waiting on creation/updation for Synapse Pipeline %q (Resource Group %q / Workspace %q): %+v", name, resourceGroupName, workspaceName, err)
+		return fmt.Errorf("waiting on creation/updation for %s: %+v", id, err)
 	}
 
-	read, err := client.GetPipeline(ctx, name, "")
-	if err != nil {
-		return fmt.Errorf("retrieving Synapse Pipeline %q (Resource Group %q / Workspace %q): %+v", name, resourceGroupName, workspaceName, err)
-	}
-
-	d.SetId(*read.ID)
+	d.SetId(id.ID())
 
 	return resourceSynapsePipelineRead(d, meta)
 }
@@ -195,7 +186,7 @@ func resourceSynapsePipelineRead(d *schema.ResourceData, meta interface{}) error
 			log.Printf("[DEBUG] Synapse Pipeline %q was not found - removing from state!", d.Id())
 			return nil
 		}
-		return fmt.Errorf("reading the state of Synapse Pipeline %q: %+v", name, err)
+		return fmt.Errorf("reading %s: %+v", id, err)
 	}
 
 	workspaceId := parse.NewWorkspaceID(id.SubscriptionId, id.ResourceGroup, id.WorkspaceName).ID()
