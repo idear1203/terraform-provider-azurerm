@@ -3,7 +3,6 @@ package validate
 import "testing"
 
 func TestValidatePipelineAndTriggerName(t *testing.T) {
-
 	testData := []struct {
 		input    string
 		expected bool
