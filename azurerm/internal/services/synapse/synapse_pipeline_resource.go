@@ -8,6 +8,7 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2019-06-01-preview/artifacts"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
 
 	"github.com/terraform-providers/terraform-provider-azurerm/azurerm/helpers/tf"
 	"github.com/terraform-providers/terraform-provider-azurerm/azurerm/internal/clients"
@@ -75,7 +76,7 @@ func resourceSynapsePipeline() *schema.Resource {
 			"activities_json": {
 				Type:             schema.TypeString,
 				Optional:         true,
-				StateFunc:        utils.NormalizeJson,
+				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: suppressJsonOrderingDifference,
 			},
 
@@ -117,8 +118,8 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 			}
 		}
 
-		if existing.ID != nil && *existing.ID != "" {
-			return tf.ImportAsExistsError("azurerm_synapse_pipeline", *existing.ID)
+		if !utils.ResponseWasNotFound(existing.Response) {
+			return tf.ImportAsExistsError("azurerm_synapse_pipeline", id.ID())
 		}
 	}
 
