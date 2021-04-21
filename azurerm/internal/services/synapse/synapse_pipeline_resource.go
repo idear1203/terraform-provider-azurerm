@@ -93,7 +93,7 @@ func resourceSynapsePipeline() *schema.Resource {
 
 func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{}) error {
 	synapseClient := meta.(*clients.Client).Synapse
-	ctx, cancel := timeouts.ForCreate(meta.(*clients.Client).StopContext, d)
+	ctx, cancel := timeouts.ForCreateUpdate(meta.(*clients.Client).StopContext, d)
 	defer cancel()
 	environment := meta.(*clients.Client).Account.Environment
 
