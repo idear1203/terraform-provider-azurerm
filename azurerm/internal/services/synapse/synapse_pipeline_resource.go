@@ -127,7 +127,7 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 	pipeline := &artifacts.Pipeline{
 		Parameters:  expandSynapseParameters(d.Get("parameters").(map[string]interface{})),
 		Variables:   expandSynapseVariables(d.Get("variables").(map[string]interface{})),
-		Description: &description,
+		Description: utils.String(d.Get("description").(string)),
 	}
 
 	if v, ok := d.GetOk("activities_json"); ok {
