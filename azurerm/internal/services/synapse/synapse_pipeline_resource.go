@@ -123,7 +123,6 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 		}
 	}
 
-	description := d.Get("description").(string)
 	pipeline := &artifacts.Pipeline{
 		Parameters:  expandSynapseParameters(d.Get("parameters").(map[string]interface{})),
 		Variables:   expandSynapseVariables(d.Get("variables").(map[string]interface{})),
@@ -178,9 +177,8 @@ func resourceSynapsePipelineRead(d *schema.ResourceData, meta interface{}) error
 	if err != nil {
 		return err
 	}
-	name := id.Name
 
-	resp, err := client.GetPipeline(ctx, name, "")
+	resp, err := client.GetPipeline(ctx, id.Name, "")
 	if err != nil {
 		if utils.ResponseWasNotFound(resp.Response) {
 			d.SetId("")
