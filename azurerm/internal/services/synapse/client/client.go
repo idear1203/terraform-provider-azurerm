@@ -3,7 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2019-06-01-preview/artifacts"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts"
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2019-06-01-preview/managedvirtualnetwork"
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2020-02-01-preview/accesscontrol"
 	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/mgmt/2019-06-01-preview/synapse"
@@ -21,6 +22,7 @@ type Client struct {
 	WorkspaceManagedIdentitySQLControlSettingsClient *synapse.WorkspaceManagedIdentitySQLControlSettingsClient
 
 	synapseAuthorizer autorest.Authorizer
+	cred              azcore.Credential
 }
 
 func NewClient(o *common.ClientOptions) *Client {
@@ -56,6 +58,7 @@ func NewClient(o *common.ClientOptions) *Client {
 		WorkspaceManagedIdentitySQLControlSettingsClient: &workspaceManagedIdentitySQLControlSettingsClient,
 
 		synapseAuthorizer: o.SynapseAuthorizer,
+		cred:              o.Cred,
 	}
 }
 
@@ -79,14 +82,13 @@ func (client Client) ManagedPrivateEndpointsClient(workspaceName, synapseEndpoin
 	return &managedPrivateEndpointsClient, nil
 }
 
-func (client Client) PipelinesClient(workspaceName, synapseEndpointSuffix string) (*artifacts.PipelineClient, error) {
+func (client Client) pipelineClient(workspaceName, synapseEndpointSuffix string) (*azartifacts.PipelineClient, error) {
 	if client.synapseAuthorizer == nil {
 		return nil, fmt.Errorf("Synapse is not supported in this Azure Environment")
 	}
 	endpoint := buildEndpoint(workspaceName, synapseEndpointSuffix)
-	pipelineClient := artifacts.NewPipelineClient(endpoint)
-	pipelineClient.Client.Authorizer = client.synapseAuthorizer
-	return &pipelineClient, nil
+	conn := azartifacts.NewConnection(endpoint, client.cred, nil)
+	return azartifacts.NewPipelineClient(conn), nil
 }
 
 func buildEndpoint(workspaceName string, synapseEndpointSuffix string) string {

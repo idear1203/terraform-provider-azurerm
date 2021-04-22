@@ -109,6 +109,12 @@ func Build(ctx context.Context, builder ClientBuilder) (*Client, error) {
 		log.Printf("[DEBUG] Skipping building the Synapse Authorizer since this is not supported in the current Azure Environment")
 	}
 
+	// Track 2 credential
+	cred, err := builder.AuthConfig.GetCredential(env.ActiveDirectoryEndpoint, endpoint)
+	if err != nil {
+		return nil, fmt.Errorf("unable to get authorization token for track 2 resource manager: %+v", err)
+	}
+
 	// Key Vault Endpoints
 	keyVaultAuth := builder.AuthConfig.BearerAuthorizerCallback(sender, oauthConfig)
 
@@ -132,6 +138,9 @@ func Build(ctx context.Context, builder ClientBuilder) (*Client, error) {
 		Features:                    builder.Features,
 		StorageUseAzureAD:           builder.StorageUseAzureAD,
 	}
+
+	// Build the ARM connection for track 2 packages to consume
+	o.Cred = cred
 
 	if err := client.Build(ctx, o); err != nil {
 		return nil, fmt.Errorf("error building Client: %+v", err)
