@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/adal"
 	"github.com/hashicorp/go-multierror"
@@ -22,6 +24,18 @@ type servicePrincipalClientCertificateAuth struct {
 }
 
 func (a servicePrincipalClientCertificateAuth) build(b Builder) (authMethod, error) {
+	method := servicePrincipalClientCertificateAuth{
+		clientId:           b.ClientID,
+		clientCertPath:     b.ClientCertPath,
+		clientCertPassword: b.ClientCertPassword,
+		subscriptionId:     b.SubscriptionID,
+		tenantId:           b.TenantID,
+		tenantOnly:         b.TenantOnly,
+	}
+	return method, nil
+}
+
+func (a servicePrincipalClientCertificateAuth) buildAuthMethodTrack2(b Builder) (authMethodTrack2, error) {
 	method := servicePrincipalClientCertificateAuth{
 		clientId:           b.ClientID,
 		clientCertPath:     b.ClientCertPath,
@@ -66,6 +80,13 @@ func (a servicePrincipalClientCertificateAuth) getAuthorizationToken(sender auto
 
 	auth := autorest.NewBearerAuthorizer(spt)
 	return auth, nil
+}
+
+func (a servicePrincipalClientCertificateAuth) getTokenCredential(azureActiveDirectoryEndpoint, endpoint string) (azcore.TokenCredential, error) {
+	return azidentity.NewClientCertificateCredential(a.tenantId, a.clientId, a.clientCertPath, &azidentity.ClientCertificateCredentialOptions{
+		Password:      a.clientCertPassword,
+		AuthorityHost: azureActiveDirectoryEndpoint,
+	})
 }
 
 func (a servicePrincipalClientCertificateAuth) populateConfig(c *Config) error {
