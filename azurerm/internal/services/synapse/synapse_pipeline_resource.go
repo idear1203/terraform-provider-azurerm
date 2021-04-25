@@ -6,7 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/Azure/azure-sdk-for-go/services/preview/synapse/2019-06-01-preview/artifacts"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts"
+	"github.com/Azure/go-autorest/autorest"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
 
@@ -111,19 +113,19 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 
 	id := parse.NewPipelineID(workspaceId.SubscriptionId, workspaceId.ResourceGroup, workspaceId.Name, d.Get("name").(string))
 	if d.IsNewResource() {
-		existing, err := client.GetPipeline(ctx, id.Name, "")
+		_, err := client.GetPipeline(ctx, id.Name, nil)
 		if err != nil {
-			if !utils.ResponseWasNotFound(existing.Response) {
+			if !utils.ResponseWasNotFound(convertResponse(err)) {
 				return fmt.Errorf("checking for present of existing %s: %+v", id, err)
 			}
 		}
 
-		if !utils.ResponseWasNotFound(existing.Response) {
+		if !utils.ResponseWasNotFound(convertResponse(err)) {
 			return tf.ImportAsExistsError("azurerm_synapse_pipeline", id.ID())
 		}
 	}
 
-	pipeline := &artifacts.Pipeline{
+	pipeline := &azartifacts.Pipeline{
 		Parameters:  expandSynapseParameters(d.Get("parameters").(map[string]interface{})),
 		Variables:   expandSynapseVariables(d.Get("variables").(map[string]interface{})),
 		Description: utils.String(d.Get("description").(string)),
@@ -145,15 +147,15 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 		pipeline.Annotations = &annotations
 	}
 
-	config := artifacts.PipelineResource{
-		Pipeline: pipeline,
+	config := azartifacts.PipelineResource{
+		Properties: pipeline,
 	}
 
-	future, err := client.CreateOrUpdatePipeline(ctx, id.Name, config, "")
+	resp, err := client.BeginCreateOrUpdatePipeline(ctx, id.Name, config, nil)
 	if err != nil {
 		return fmt.Errorf("creating %s: %+v", id, err)
 	}
-	if err = future.WaitForCompletionRef(ctx, client.Client); err != nil {
+	if _, err = resp.PollUntilDone(ctx, 30*time.Second); err != nil {
 		return fmt.Errorf("waiting on creation/updation for %s: %+v", id, err)
 	}
 
@@ -178,9 +180,9 @@ func resourceSynapsePipelineRead(d *schema.ResourceData, meta interface{}) error
 		return err
 	}
 
-	resp, err := client.GetPipeline(ctx, id.Name, "")
+	resp, err := client.GetPipeline(ctx, id.Name, nil)
 	if err != nil {
-		if utils.ResponseWasNotFound(resp.Response) {
+		if utils.ResponseWasNotFound(convertResponse(err)) {
 			d.SetId("")
 			log.Printf("[DEBUG] Synapse Pipeline %q was not found - removing from state!", d.Id())
 			return nil
@@ -192,10 +194,10 @@ func resourceSynapsePipelineRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("synapse_workspace_id", workspaceId)
 	d.Set("name", id.Name)
 
-	if props := resp.Pipeline; props != nil {
+	if props := resp.PipelineResource.Properties; props != nil {
 		d.Set("description", props.Description)
 
-		parameters := flattenSynapseParameters(props.Parameters)
+		parameters := flattenSynapseParameters(*props.Parameters)
 		if err := d.Set("parameters", parameters); err != nil {
 			return fmt.Errorf("setting `parameters`: %+v", err)
 		}
@@ -205,7 +207,7 @@ func resourceSynapsePipelineRead(d *schema.ResourceData, meta interface{}) error
 			return fmt.Errorf("setting `annotations`: %+v", err)
 		}
 
-		variables := flattenSynapseVariables(props.Variables)
+		variables := flattenSynapseVariables(*props.Variables)
 		if err := d.Set("variables", variables); err != nil {
 			return fmt.Errorf("setting `variables`: %+v", err)
 		}
@@ -240,27 +242,27 @@ func resourceSynapsePipelineDelete(d *schema.ResourceData, meta interface{}) err
 		return err
 	}
 
-	if _, err = client.DeletePipeline(ctx, id.Name); err != nil {
+	if _, err = client.BeginDeletePipeline(ctx, id.Name, nil); err != nil {
 		return fmt.Errorf("deleting %s: %+v", id, err)
 	}
 
 	return nil
 }
 
-func expandSynapseParameters(input map[string]interface{}) map[string]*artifacts.ParameterSpecification {
-	output := make(map[string]*artifacts.ParameterSpecification)
+func expandSynapseParameters(input map[string]interface{}) *map[string]*azartifacts.ParameterSpecification {
+	output := make(map[string]*azartifacts.ParameterSpecification)
 
 	for k, v := range input {
-		output[k] = &artifacts.ParameterSpecification{
-			Type:         artifacts.ParameterTypeString,
+		output[k] = &azartifacts.ParameterSpecification{
+			Type:         azartifacts.ParameterTypeString.ToPtr(),
 			DefaultValue: v.(string),
 		}
 	}
 
-	return output
+	return &output
 }
 
-func flattenSynapseParameters(input map[string]*artifacts.ParameterSpecification) map[string]interface{} {
+func flattenSynapseParameters(input map[string]*azartifacts.ParameterSpecification) map[string]interface{} {
 	output := make(map[string]interface{})
 
 	for k, v := range input {
@@ -294,20 +296,20 @@ func flattenSynapseAnnotations(input *[]interface{}) []string {
 	return annotations
 }
 
-func expandSynapseVariables(input map[string]interface{}) map[string]*artifacts.VariableSpecification {
-	output := make(map[string]*artifacts.VariableSpecification)
+func expandSynapseVariables(input map[string]interface{}) *map[string]*azartifacts.VariableSpecification {
+	output := make(map[string]*azartifacts.VariableSpecification)
 
 	for k, v := range input {
-		output[k] = &artifacts.VariableSpecification{
-			Type:         artifacts.VariableTypeString,
+		output[k] = &azartifacts.VariableSpecification{
+			Type:         azartifacts.VariableTypeString.ToPtr(),
 			DefaultValue: v.(string),
 		}
 	}
 
-	return output
+	return &output
 }
 
-func flattenSynapseVariables(input map[string]*artifacts.VariableSpecification) map[string]interface{} {
+func flattenSynapseVariables(input map[string]*azartifacts.VariableSpecification) map[string]interface{} {
 	output := make(map[string]interface{})
 
 	for k, v := range input {
@@ -325,30 +327,50 @@ func flattenSynapseVariables(input map[string]*artifacts.VariableSpecification) 
 	return output
 }
 
-func deserializeSynapsePipelineActivities(jsonData string) (*[]artifacts.BasicActivity, error) {
-	jsonData = fmt.Sprintf(`{ "activities": %s }`, jsonData)
-	pipeline := &artifacts.Pipeline{}
-	err := pipeline.UnmarshalJSON([]byte(jsonData))
+func deserializeSynapsePipelineActivities(jsonData string) (*[]azartifacts.ActivityClassification, error) {
+	jsonData = fmt.Sprintf(`{ "properties": { "activities": %s }}`, jsonData)
+	jsonData = `
+{
+    "properties": {
+        "activities": [
+            {
+                "name": "Append variable1",
+                "type": "AppendVariable",
+                "dependsOn": [],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "bob",
+                    "value": "something"
+                }
+            }
+        ]
+    }
+}`
+	pipelineResource := &azartifacts.PipelineResource{}
+	err := pipelineResource.UnmarshalJSON([]byte(jsonData))
 	if err != nil {
 		return nil, err
 	}
-	return pipeline.Activities, nil
+	return pipelineResource.Properties.Activities, nil
 }
 
-func serializeSynapsePipelineActivities(activities *[]artifacts.BasicActivity) (string, error) {
-	pipeline := &artifacts.Pipeline{Activities: activities}
-	result, err := pipeline.MarshalJSON()
+func serializeSynapsePipelineActivities(activities *[]azartifacts.ActivityClassification) (string, error) {
+	pipeline := &azartifacts.Pipeline{Activities: activities}
+	pipelineResource := &azartifacts.PipelineResource{Properties: pipeline}
+	result, err := pipelineResource.MarshalJSON()
 	if err != nil {
 		return "nil", err
 	}
 
-	var m map[string]*json.RawMessage
+	//var m map[string]*json.RawMessage
+	var m map[string]map[string]*json.RawMessage
 	err = json.Unmarshal(result, &m)
 	if err != nil {
 		return "", err
 	}
 
-	activitiesJson, err := json.Marshal(m["activities"])
+	//activitiesJson, err := json.Marshal(m["activities"])
+	activitiesJson, err := json.Marshal(m["properites"]["activities"])
 	if err != nil {
 		return "", err
 	}
@@ -358,4 +380,14 @@ func serializeSynapsePipelineActivities(activities *[]artifacts.BasicActivity) (
 
 func suppressJsonOrderingDifference(_, old, new string, _ *schema.ResourceData) bool {
 	return utils.NormalizeJson(old) == utils.NormalizeJson(new)
+}
+
+//func Track2ResourceWasNotFound(err error) bool {
+func convertResponse(err error) autorest.Response {
+	//if v, ok := err.(azcore.HTTPResponse); ok {
+	//	return &autorest.Response{Response: v.RawResponse()}
+	//}
+
+	//return nil
+	return autorest.Response{Response: err.(azcore.HTTPResponse).RawResponse()}
 }

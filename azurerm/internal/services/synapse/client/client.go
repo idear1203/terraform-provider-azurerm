@@ -82,7 +82,7 @@ func (client Client) ManagedPrivateEndpointsClient(workspaceName, synapseEndpoin
 	return &managedPrivateEndpointsClient, nil
 }
 
-func (client Client) pipelineClient(workspaceName, synapseEndpointSuffix string) (*azartifacts.PipelineClient, error) {
+func (client Client) PipelinesClient(workspaceName, synapseEndpointSuffix string) (*azartifacts.PipelineClient, error) {
 	if client.synapseAuthorizer == nil {
 		return nil, fmt.Errorf("Synapse is not supported in this Azure Environment")
 	}

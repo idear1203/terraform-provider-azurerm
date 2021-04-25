@@ -28,6 +28,8 @@ require (
 	gopkg.in/yaml.v2 v2.3.0
 )
 
+replace github.com/Azure/azure-sdk-for-go/sdk/azcore => github.com/njuCZ/azure-sdk-for-go/sdk/azcore v0.14.99
+
 replace github.com/Azure/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts => github.com/njuCZ/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts v0.1.0
 
 replace github.com/hashicorp/go-azure-helpers => github.com/ArcturusZhang/go-azure-helpers v0.15.0

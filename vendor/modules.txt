@@ -129,12 +129,12 @@ github.com/Azure/azure-sdk-for-go/services/timeseriesinsights/mgmt/2020-05-15/ti
 github.com/Azure/azure-sdk-for-go/services/trafficmanager/mgmt/2018-04-01/trafficmanager
 github.com/Azure/azure-sdk-for-go/services/web/mgmt/2020-06-01/web
 github.com/Azure/azure-sdk-for-go/version
-# github.com/Azure/azure-sdk-for-go/sdk/azcore v0.14.3
+# github.com/Azure/azure-sdk-for-go/sdk/azcore v0.14.3 => github.com/njuCZ/azure-sdk-for-go/sdk/azcore v0.14.99
 ## explicit
 github.com/Azure/azure-sdk-for-go/sdk/azcore
 # github.com/Azure/azure-sdk-for-go/sdk/azidentity v0.8.0
 github.com/Azure/azure-sdk-for-go/sdk/azidentity
-# github.com/Azure/azure-sdk-for-go/sdk/internal v0.5.0
+# github.com/Azure/azure-sdk-for-go/sdk/internal v0.5.1
 github.com/Azure/azure-sdk-for-go/sdk/internal/runtime
 github.com/Azure/azure-sdk-for-go/sdk/internal/uuid
 # github.com/Azure/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts v0.0.0-unpublished => github.com/njuCZ/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts v0.1.0
@@ -707,5 +707,6 @@ google.golang.org/protobuf/types/pluginpb
 # gopkg.in/yaml.v2 v2.3.0
 ## explicit
 gopkg.in/yaml.v2
+# github.com/Azure/azure-sdk-for-go/sdk/azcore => github.com/njuCZ/azure-sdk-for-go/sdk/azcore v0.14.99
 # github.com/Azure/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts => github.com/njuCZ/azure-sdk-for-go/sdk/synapse/2019-06-01/azartifacts v0.1.0
 # github.com/hashicorp/go-azure-helpers => github.com/ArcturusZhang/go-azure-helpers v0.15.0
