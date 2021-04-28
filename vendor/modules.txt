@@ -128,6 +128,14 @@ github.com/Azure/azure-sdk-for-go/services/timeseriesinsights/mgmt/2020-05-15/ti
 github.com/Azure/azure-sdk-for-go/services/trafficmanager/mgmt/2018-04-01/trafficmanager
 github.com/Azure/azure-sdk-for-go/services/web/mgmt/2020-06-01/web
 github.com/Azure/azure-sdk-for-go/version
+# github.com/Azure/azure-sdk-for-go/sdk/azcore v0.14.5
+## explicit
+github.com/Azure/azure-sdk-for-go/sdk/azcore
+# github.com/Azure/azure-sdk-for-go/sdk/azidentity v0.8.0
+github.com/Azure/azure-sdk-for-go/sdk/azidentity
+# github.com/Azure/azure-sdk-for-go/sdk/internal v0.5.1
+github.com/Azure/azure-sdk-for-go/sdk/internal/runtime
+github.com/Azure/azure-sdk-for-go/sdk/internal/uuid
 # github.com/Azure/go-autorest v14.2.0+incompatible
 github.com/Azure/go-autorest
 # github.com/Azure/go-autorest/autorest v0.11.18
@@ -261,7 +269,7 @@ github.com/google/uuid
 github.com/googleapis/gax-go/v2
 # github.com/hashicorp/errwrap v1.0.0
 github.com/hashicorp/errwrap
-# github.com/hashicorp/go-azure-helpers v0.15.0
+# github.com/hashicorp/go-azure-helpers v0.15.0 => github.com/ArcturusZhang/go-azure-helpers v0.15.0
 ## explicit
 github.com/hashicorp/go-azure-helpers/authentication
 github.com/hashicorp/go-azure-helpers/resourceproviders
@@ -420,6 +428,8 @@ github.com/mitchellh/mapstructure
 github.com/mitchellh/reflectwalk
 # github.com/oklog/run v1.0.0
 github.com/oklog/run
+# github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4
+github.com/pkg/browser
 # github.com/posener/complete v1.2.1
 github.com/posener/complete
 github.com/posener/complete/cmd
@@ -693,3 +703,4 @@ google.golang.org/protobuf/types/pluginpb
 # gopkg.in/yaml.v2 v2.3.0
 ## explicit
 gopkg.in/yaml.v2
+# github.com/hashicorp/go-azure-helpers => github.com/ArcturusZhang/go-azure-helpers v0.15.0
