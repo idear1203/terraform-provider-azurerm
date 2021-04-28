@@ -54,14 +54,26 @@ func (client *PipelineClient) BeginCreateOrUpdatePipeline(ctx context.Context, p
 
 // ResumeCreateOrUpdatePipeline creates a new PipelineResourcePoller from the specified resume token.
 // token - The value must come from a previous call to PipelineResourcePoller.ResumeToken().
-func (client *PipelineClient) ResumeCreateOrUpdatePipeline(token string) (PipelineResourcePoller, error) {
+func (client *PipelineClient) ResumeCreateOrUpdatePipeline(ctx context.Context, token string) (PipelineResourcePollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("PipelineClient.CreateOrUpdatePipeline", token, client.con.Pipeline(), client.createOrUpdatePipelineHandleError)
 	if err != nil {
-		return nil, err
+		return PipelineResourcePollerResponse{}, err
 	}
-	return &pipelineResourcePoller{
+	poller := &pipelineResourcePoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return PipelineResourcePollerResponse{}, err
+	}
+	result := PipelineResourcePollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (PipelineResourceResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // CreateOrUpdatePipeline - Creates or updates a pipeline.
@@ -115,7 +127,7 @@ func (client *PipelineClient) createOrUpdatePipelineHandleResponse(resp *azcore.
 func (client *PipelineClient) createOrUpdatePipelineHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -180,7 +192,7 @@ func (client *PipelineClient) createPipelineRunHandleResponse(resp *azcore.Respo
 func (client *PipelineClient) createPipelineRunHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -210,14 +222,26 @@ func (client *PipelineClient) BeginDeletePipeline(ctx context.Context, pipelineN
 
 // ResumeDeletePipeline creates a new HTTPPoller from the specified resume token.
 // token - The value must come from a previous call to HTTPPoller.ResumeToken().
-func (client *PipelineClient) ResumeDeletePipeline(token string) (HTTPPoller, error) {
+func (client *PipelineClient) ResumeDeletePipeline(ctx context.Context, token string) (HTTPPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("PipelineClient.DeletePipeline", token, client.con.Pipeline(), client.deletePipelineHandleError)
 	if err != nil {
-		return nil, err
+		return HTTPPollerResponse{}, err
 	}
-	return &httpPoller{
+	poller := &httpPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return HTTPPollerResponse{}, err
+	}
+	result := HTTPPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (*http.Response, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // DeletePipeline - Deletes a pipeline.
@@ -259,7 +283,7 @@ func (client *PipelineClient) deletePipelineCreateRequest(ctx context.Context, p
 func (client *PipelineClient) deletePipelineHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -315,7 +339,7 @@ func (client *PipelineClient) getPipelineHandleResponse(resp *azcore.Response) (
 func (client *PipelineClient) getPipelineHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -364,7 +388,7 @@ func (client *PipelineClient) getPipelinesByWorkspaceHandleResponse(resp *azcore
 func (client *PipelineClient) getPipelinesByWorkspaceHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -394,14 +418,26 @@ func (client *PipelineClient) BeginRenamePipeline(ctx context.Context, pipelineN
 
 // ResumeRenamePipeline creates a new HTTPPoller from the specified resume token.
 // token - The value must come from a previous call to HTTPPoller.ResumeToken().
-func (client *PipelineClient) ResumeRenamePipeline(token string) (HTTPPoller, error) {
+func (client *PipelineClient) ResumeRenamePipeline(ctx context.Context, token string) (HTTPPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("PipelineClient.RenamePipeline", token, client.con.Pipeline(), client.renamePipelineHandleError)
 	if err != nil {
-		return nil, err
+		return HTTPPollerResponse{}, err
 	}
-	return &httpPoller{
+	poller := &httpPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return HTTPPollerResponse{}, err
+	}
+	result := HTTPPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (*http.Response, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // RenamePipeline - Renames a pipeline.
@@ -443,7 +479,7 @@ func (client *PipelineClient) renamePipelineCreateRequest(ctx context.Context, p
 func (client *PipelineClient) renamePipelineHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

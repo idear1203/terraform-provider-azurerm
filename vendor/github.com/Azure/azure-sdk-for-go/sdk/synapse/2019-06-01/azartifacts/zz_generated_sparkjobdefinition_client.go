@@ -53,14 +53,26 @@ func (client *SparkJobDefinitionClient) BeginCreateOrUpdateSparkJobDefinition(ct
 
 // ResumeCreateOrUpdateSparkJobDefinition creates a new SparkJobDefinitionResourcePoller from the specified resume token.
 // token - The value must come from a previous call to SparkJobDefinitionResourcePoller.ResumeToken().
-func (client *SparkJobDefinitionClient) ResumeCreateOrUpdateSparkJobDefinition(token string) (SparkJobDefinitionResourcePoller, error) {
+func (client *SparkJobDefinitionClient) ResumeCreateOrUpdateSparkJobDefinition(ctx context.Context, token string) (SparkJobDefinitionResourcePollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("SparkJobDefinitionClient.CreateOrUpdateSparkJobDefinition", token, client.con.Pipeline(), client.createOrUpdateSparkJobDefinitionHandleError)
 	if err != nil {
-		return nil, err
+		return SparkJobDefinitionResourcePollerResponse{}, err
 	}
-	return &sparkJobDefinitionResourcePoller{
+	poller := &sparkJobDefinitionResourcePoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return SparkJobDefinitionResourcePollerResponse{}, err
+	}
+	result := SparkJobDefinitionResourcePollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (SparkJobDefinitionResourceResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // CreateOrUpdateSparkJobDefinition - Creates or updates a Spark Job Definition.
@@ -114,7 +126,7 @@ func (client *SparkJobDefinitionClient) createOrUpdateSparkJobDefinitionHandleRe
 func (client *SparkJobDefinitionClient) createOrUpdateSparkJobDefinitionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -144,14 +156,26 @@ func (client *SparkJobDefinitionClient) BeginDebugSparkJobDefinition(ctx context
 
 // ResumeDebugSparkJobDefinition creates a new SparkBatchJobPoller from the specified resume token.
 // token - The value must come from a previous call to SparkBatchJobPoller.ResumeToken().
-func (client *SparkJobDefinitionClient) ResumeDebugSparkJobDefinition(token string) (SparkBatchJobPoller, error) {
+func (client *SparkJobDefinitionClient) ResumeDebugSparkJobDefinition(ctx context.Context, token string) (SparkBatchJobPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("SparkJobDefinitionClient.DebugSparkJobDefinition", token, client.con.Pipeline(), client.debugSparkJobDefinitionHandleError)
 	if err != nil {
-		return nil, err
+		return SparkBatchJobPollerResponse{}, err
 	}
-	return &sparkBatchJobPoller{
+	poller := &sparkBatchJobPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return SparkBatchJobPollerResponse{}, err
+	}
+	result := SparkBatchJobPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (SparkBatchJobResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // DebugSparkJobDefinition - Debug the spark job definition.
@@ -198,7 +222,7 @@ func (client *SparkJobDefinitionClient) debugSparkJobDefinitionHandleResponse(re
 func (client *SparkJobDefinitionClient) debugSparkJobDefinitionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -228,14 +252,26 @@ func (client *SparkJobDefinitionClient) BeginDeleteSparkJobDefinition(ctx contex
 
 // ResumeDeleteSparkJobDefinition creates a new HTTPPoller from the specified resume token.
 // token - The value must come from a previous call to HTTPPoller.ResumeToken().
-func (client *SparkJobDefinitionClient) ResumeDeleteSparkJobDefinition(token string) (HTTPPoller, error) {
+func (client *SparkJobDefinitionClient) ResumeDeleteSparkJobDefinition(ctx context.Context, token string) (HTTPPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("SparkJobDefinitionClient.DeleteSparkJobDefinition", token, client.con.Pipeline(), client.deleteSparkJobDefinitionHandleError)
 	if err != nil {
-		return nil, err
+		return HTTPPollerResponse{}, err
 	}
-	return &httpPoller{
+	poller := &httpPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return HTTPPollerResponse{}, err
+	}
+	result := HTTPPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (*http.Response, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // DeleteSparkJobDefinition - Deletes a Spark Job Definition.
@@ -277,7 +313,7 @@ func (client *SparkJobDefinitionClient) deleteSparkJobDefinitionCreateRequest(ct
 func (client *SparkJobDefinitionClient) deleteSparkJobDefinitionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -307,14 +343,26 @@ func (client *SparkJobDefinitionClient) BeginExecuteSparkJobDefinition(ctx conte
 
 // ResumeExecuteSparkJobDefinition creates a new SparkBatchJobPoller from the specified resume token.
 // token - The value must come from a previous call to SparkBatchJobPoller.ResumeToken().
-func (client *SparkJobDefinitionClient) ResumeExecuteSparkJobDefinition(token string) (SparkBatchJobPoller, error) {
+func (client *SparkJobDefinitionClient) ResumeExecuteSparkJobDefinition(ctx context.Context, token string) (SparkBatchJobPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("SparkJobDefinitionClient.ExecuteSparkJobDefinition", token, client.con.Pipeline(), client.executeSparkJobDefinitionHandleError)
 	if err != nil {
-		return nil, err
+		return SparkBatchJobPollerResponse{}, err
 	}
-	return &sparkBatchJobPoller{
+	poller := &sparkBatchJobPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return SparkBatchJobPollerResponse{}, err
+	}
+	result := SparkBatchJobPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (SparkBatchJobResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // ExecuteSparkJobDefinition - Executes the spark job definition.
@@ -365,7 +413,7 @@ func (client *SparkJobDefinitionClient) executeSparkJobDefinitionHandleResponse(
 func (client *SparkJobDefinitionClient) executeSparkJobDefinitionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -421,7 +469,7 @@ func (client *SparkJobDefinitionClient) getSparkJobDefinitionHandleResponse(resp
 func (client *SparkJobDefinitionClient) getSparkJobDefinitionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -470,7 +518,7 @@ func (client *SparkJobDefinitionClient) getSparkJobDefinitionsByWorkspaceHandleR
 func (client *SparkJobDefinitionClient) getSparkJobDefinitionsByWorkspaceHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -500,14 +548,26 @@ func (client *SparkJobDefinitionClient) BeginRenameSparkJobDefinition(ctx contex
 
 // ResumeRenameSparkJobDefinition creates a new HTTPPoller from the specified resume token.
 // token - The value must come from a previous call to HTTPPoller.ResumeToken().
-func (client *SparkJobDefinitionClient) ResumeRenameSparkJobDefinition(token string) (HTTPPoller, error) {
+func (client *SparkJobDefinitionClient) ResumeRenameSparkJobDefinition(ctx context.Context, token string) (HTTPPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("SparkJobDefinitionClient.RenameSparkJobDefinition", token, client.con.Pipeline(), client.renameSparkJobDefinitionHandleError)
 	if err != nil {
-		return nil, err
+		return HTTPPollerResponse{}, err
 	}
-	return &httpPoller{
+	poller := &httpPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return HTTPPollerResponse{}, err
+	}
+	result := HTTPPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (*http.Response, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // RenameSparkJobDefinition - Renames a sparkJobDefinition.
@@ -549,7 +609,7 @@ func (client *SparkJobDefinitionClient) renameSparkJobDefinitionCreateRequest(ct
 func (client *SparkJobDefinitionClient) renameSparkJobDefinitionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

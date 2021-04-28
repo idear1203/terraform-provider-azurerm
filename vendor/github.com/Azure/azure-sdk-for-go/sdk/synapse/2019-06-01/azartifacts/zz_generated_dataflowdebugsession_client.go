@@ -69,7 +69,7 @@ func (client *DataFlowDebugSessionClient) addDataFlowHandleResponse(resp *azcore
 func (client *DataFlowDebugSessionClient) addDataFlowHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -99,14 +99,26 @@ func (client *DataFlowDebugSessionClient) BeginCreateDataFlowDebugSession(ctx co
 
 // ResumeCreateDataFlowDebugSession creates a new CreateDataFlowDebugSessionResponsePoller from the specified resume token.
 // token - The value must come from a previous call to CreateDataFlowDebugSessionResponsePoller.ResumeToken().
-func (client *DataFlowDebugSessionClient) ResumeCreateDataFlowDebugSession(token string) (CreateDataFlowDebugSessionResponsePoller, error) {
+func (client *DataFlowDebugSessionClient) ResumeCreateDataFlowDebugSession(ctx context.Context, token string) (CreateDataFlowDebugSessionResponsePollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("DataFlowDebugSessionClient.CreateDataFlowDebugSession", token, client.con.Pipeline(), client.createDataFlowDebugSessionHandleError)
 	if err != nil {
-		return nil, err
+		return CreateDataFlowDebugSessionResponsePollerResponse{}, err
 	}
-	return &createDataFlowDebugSessionResponsePoller{
+	poller := &createDataFlowDebugSessionResponsePoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return CreateDataFlowDebugSessionResponsePollerResponse{}, err
+	}
+	result := CreateDataFlowDebugSessionResponsePollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (CreateDataFlowDebugSessionResponseResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // CreateDataFlowDebugSession - Creates a data flow debug session.
@@ -153,7 +165,7 @@ func (client *DataFlowDebugSessionClient) createDataFlowDebugSessionHandleRespon
 func (client *DataFlowDebugSessionClient) createDataFlowDebugSessionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -193,7 +205,7 @@ func (client *DataFlowDebugSessionClient) deleteDataFlowDebugSessionCreateReques
 func (client *DataFlowDebugSessionClient) deleteDataFlowDebugSessionHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -223,14 +235,26 @@ func (client *DataFlowDebugSessionClient) BeginExecuteCommand(ctx context.Contex
 
 // ResumeExecuteCommand creates a new DataFlowDebugCommandResponsePoller from the specified resume token.
 // token - The value must come from a previous call to DataFlowDebugCommandResponsePoller.ResumeToken().
-func (client *DataFlowDebugSessionClient) ResumeExecuteCommand(token string) (DataFlowDebugCommandResponsePoller, error) {
+func (client *DataFlowDebugSessionClient) ResumeExecuteCommand(ctx context.Context, token string) (DataFlowDebugCommandResponsePollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("DataFlowDebugSessionClient.ExecuteCommand", token, client.con.Pipeline(), client.executeCommandHandleError)
 	if err != nil {
-		return nil, err
+		return DataFlowDebugCommandResponsePollerResponse{}, err
 	}
-	return &dataFlowDebugCommandResponsePoller{
+	poller := &dataFlowDebugCommandResponsePoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return DataFlowDebugCommandResponsePollerResponse{}, err
+	}
+	result := DataFlowDebugCommandResponsePollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (DataFlowDebugCommandResponseResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // ExecuteCommand - Execute a data flow debug command.
@@ -277,7 +301,7 @@ func (client *DataFlowDebugSessionClient) executeCommandHandleResponse(resp *azc
 func (client *DataFlowDebugSessionClient) executeCommandHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -326,7 +350,7 @@ func (client *DataFlowDebugSessionClient) queryDataFlowDebugSessionsByWorkspaceH
 func (client *DataFlowDebugSessionClient) queryDataFlowDebugSessionsByWorkspaceHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

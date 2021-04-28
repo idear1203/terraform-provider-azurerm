@@ -113,14 +113,14 @@ func resourceSynapsePipelineCreateUpdate(d *schema.ResourceData, meta interface{
 
 	id := parse.NewPipelineID(workspaceId.SubscriptionId, workspaceId.ResourceGroup, workspaceId.Name, d.Get("name").(string))
 	if d.IsNewResource() {
-		_, err := client.GetPipeline(ctx, id.Name, nil)
+		existing, err := client.GetPipeline(ctx, id.Name, nil)
 		if err != nil {
 			if !utils.ResponseWasNotFound(convertResponse(err)) {
 				return fmt.Errorf("checking for present of existing %s: %+v", id, err)
 			}
 		}
 
-		if !utils.ResponseWasNotFound(convertResponse(err)) {
+		if err == nil && !utils.ResponseWasNotFound(autorest.Response{Response: existing.RawResponse}) {
 			return tf.ImportAsExistsError("azurerm_synapse_pipeline", id.ID())
 		}
 	}
@@ -329,23 +329,6 @@ func flattenSynapseVariables(input map[string]*azartifacts.VariableSpecification
 
 func deserializeSynapsePipelineActivities(jsonData string) (*[]azartifacts.ActivityClassification, error) {
 	jsonData = fmt.Sprintf(`{ "properties": { "activities": %s }}`, jsonData)
-	jsonData = `
-{
-    "properties": {
-        "activities": [
-            {
-                "name": "Append variable1",
-                "type": "AppendVariable",
-                "dependsOn": [],
-                "userProperties": [],
-                "typeProperties": {
-                    "variableName": "bob",
-                    "value": "something"
-                }
-            }
-        ]
-    }
-}`
 	pipelineResource := &azartifacts.PipelineResource{}
 	err := pipelineResource.UnmarshalJSON([]byte(jsonData))
 	if err != nil {
@@ -362,14 +345,12 @@ func serializeSynapsePipelineActivities(activities *[]azartifacts.ActivityClassi
 		return "nil", err
 	}
 
-	//var m map[string]*json.RawMessage
 	var m map[string]map[string]*json.RawMessage
 	err = json.Unmarshal(result, &m)
 	if err != nil {
 		return "", err
 	}
 
-	//activitiesJson, err := json.Marshal(m["activities"])
 	activitiesJson, err := json.Marshal(m["properites"]["activities"])
 	if err != nil {
 		return "", err
@@ -382,12 +363,6 @@ func suppressJsonOrderingDifference(_, old, new string, _ *schema.ResourceData) 
 	return utils.NormalizeJson(old) == utils.NormalizeJson(new)
 }
 
-//func Track2ResourceWasNotFound(err error) bool {
 func convertResponse(err error) autorest.Response {
-	//if v, ok := err.(azcore.HTTPResponse); ok {
-	//	return &autorest.Response{Response: v.RawResponse()}
-	//}
-
-	//return nil
 	return autorest.Response{Response: err.(azcore.HTTPResponse).RawResponse()}
 }

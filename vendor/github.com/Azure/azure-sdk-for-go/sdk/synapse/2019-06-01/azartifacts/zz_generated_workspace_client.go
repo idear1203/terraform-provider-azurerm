@@ -68,7 +68,7 @@ func (client *WorkspaceClient) getHandleResponse(resp *azcore.Response) (Workspa
 func (client *WorkspaceClient) getHandleError(resp *azcore.Response) error {
 	var err ErrorContract
 	if err := resp.UnmarshalAsJSON(&err); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

@@ -75,7 +75,7 @@ func (client *SQLPoolsClient) getHandleResponse(resp *azcore.Response) (SQLPoolR
 func (client *SQLPoolsClient) getHandleError(resp *azcore.Response) error {
 	var err ErrorContract
 	if err := resp.UnmarshalAsJSON(&err); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -124,7 +124,7 @@ func (client *SQLPoolsClient) listHandleResponse(resp *azcore.Response) (SQLPool
 func (client *SQLPoolsClient) listHandleError(resp *azcore.Response) error {
 	var err ErrorContract
 	if err := resp.UnmarshalAsJSON(&err); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

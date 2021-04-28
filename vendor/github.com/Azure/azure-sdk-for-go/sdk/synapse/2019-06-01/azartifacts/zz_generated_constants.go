@@ -28,7 +28,7 @@ func PossibleAvroCompressionCodecValues() []AvroCompressionCodec {
 	}
 }
 
-// ToPtr() returns a *AvroCompressionCodec pointing to the current value.
+// ToPtr returns a *AvroCompressionCodec pointing to the current value.
 func (c AvroCompressionCodec) ToPtr() *AvroCompressionCodec {
 	return &c
 }
@@ -59,7 +59,7 @@ func PossibleAzureFunctionActivityMethodValues() []AzureFunctionActivityMethod {
 	}
 }
 
-// ToPtr() returns a *AzureFunctionActivityMethod pointing to the current value.
+// ToPtr returns a *AzureFunctionActivityMethod pointing to the current value.
 func (c AzureFunctionActivityMethod) ToPtr() *AzureFunctionActivityMethod {
 	return &c
 }
@@ -80,7 +80,7 @@ func PossibleAzureSearchIndexWriteBehaviorTypeValues() []AzureSearchIndexWriteBe
 	}
 }
 
-// ToPtr() returns a *AzureSearchIndexWriteBehaviorType pointing to the current value.
+// ToPtr returns a *AzureSearchIndexWriteBehaviorType pointing to the current value.
 func (c AzureSearchIndexWriteBehaviorType) ToPtr() *AzureSearchIndexWriteBehaviorType {
 	return &c
 }
@@ -99,7 +99,7 @@ func PossibleBigDataPoolReferenceTypeValues() []BigDataPoolReferenceType {
 	}
 }
 
-// ToPtr() returns a *BigDataPoolReferenceType pointing to the current value.
+// ToPtr returns a *BigDataPoolReferenceType pointing to the current value.
 func (c BigDataPoolReferenceType) ToPtr() *BigDataPoolReferenceType {
 	return &c
 }
@@ -119,7 +119,7 @@ func PossibleBlobEventTypeValues() []BlobEventType {
 	}
 }
 
-// ToPtr() returns a *BlobEventType pointing to the current value.
+// ToPtr returns a *BlobEventType pointing to the current value.
 func (c BlobEventType) ToPtr() *BlobEventType {
 	return &c
 }
@@ -158,7 +158,7 @@ func PossibleCassandraSourceReadConsistencyLevelsValues() []CassandraSourceReadC
 	}
 }
 
-// ToPtr() returns a *CassandraSourceReadConsistencyLevels pointing to the current value.
+// ToPtr returns a *CassandraSourceReadConsistencyLevels pointing to the current value.
 func (c CassandraSourceReadConsistencyLevels) ToPtr() *CassandraSourceReadConsistencyLevels {
 	return &c
 }
@@ -183,7 +183,7 @@ func PossibleCellOutputTypeValues() []CellOutputType {
 	}
 }
 
-// ToPtr() returns a *CellOutputType pointing to the current value.
+// ToPtr returns a *CellOutputType pointing to the current value.
 func (c CellOutputType) ToPtr() *CellOutputType {
 	return &c
 }
@@ -215,7 +215,7 @@ func PossibleCompressionCodecValues() []CompressionCodec {
 	}
 }
 
-// ToPtr() returns a *CompressionCodec pointing to the current value.
+// ToPtr returns a *CompressionCodec pointing to the current value.
 func (c CompressionCodec) ToPtr() *CompressionCodec {
 	return &c
 }
@@ -238,7 +238,7 @@ func PossibleCopyBehaviorTypeValues() []CopyBehaviorType {
 	}
 }
 
-// ToPtr() returns a *CopyBehaviorType pointing to the current value.
+// ToPtr returns a *CopyBehaviorType pointing to the current value.
 func (c CopyBehaviorType) ToPtr() *CopyBehaviorType {
 	return &c
 }
@@ -261,7 +261,7 @@ func PossibleDataFlowComputeTypeValues() []DataFlowComputeType {
 	}
 }
 
-// ToPtr() returns a *DataFlowComputeType pointing to the current value.
+// ToPtr returns a *DataFlowComputeType pointing to the current value.
 func (c DataFlowComputeType) ToPtr() *DataFlowComputeType {
 	return &c
 }
@@ -280,7 +280,7 @@ func PossibleDataFlowReferenceTypeValues() []DataFlowReferenceType {
 	}
 }
 
-// ToPtr() returns a *DataFlowReferenceType pointing to the current value.
+// ToPtr returns a *DataFlowReferenceType pointing to the current value.
 func (c DataFlowReferenceType) ToPtr() *DataFlowReferenceType {
 	return &c
 }
@@ -300,7 +300,7 @@ func PossibleDatasetCompressionLevelValues() []DatasetCompressionLevel {
 	}
 }
 
-// ToPtr() returns a *DatasetCompressionLevel pointing to the current value.
+// ToPtr returns a *DatasetCompressionLevel pointing to the current value.
 func (c DatasetCompressionLevel) ToPtr() *DatasetCompressionLevel {
 	return &c
 }
@@ -319,7 +319,7 @@ func PossibleDatasetReferenceTypeValues() []DatasetReferenceType {
 	}
 }
 
-// ToPtr() returns a *DatasetReferenceType pointing to the current value.
+// ToPtr returns a *DatasetReferenceType pointing to the current value.
 func (c DatasetReferenceType) ToPtr() *DatasetReferenceType {
 	return &c
 }
@@ -349,7 +349,7 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 	}
 }
 
-// ToPtr() returns a *DayOfWeek pointing to the current value.
+// ToPtr returns a *DayOfWeek pointing to the current value.
 func (c DayOfWeek) ToPtr() *DayOfWeek {
 	return &c
 }
@@ -368,7 +368,7 @@ func PossibleDb2AuthenticationTypeValues() []Db2AuthenticationType {
 	}
 }
 
-// ToPtr() returns a *Db2AuthenticationType pointing to the current value.
+// ToPtr returns a *Db2AuthenticationType pointing to the current value.
 func (c Db2AuthenticationType) ToPtr() *Db2AuthenticationType {
 	return &c
 }
@@ -392,7 +392,7 @@ func PossibleDependencyConditionValues() []DependencyCondition {
 	}
 }
 
-// ToPtr() returns a *DependencyCondition pointing to the current value.
+// ToPtr returns a *DependencyCondition pointing to the current value.
 func (c DependencyCondition) ToPtr() *DependencyCondition {
 	return &c
 }
@@ -417,7 +417,7 @@ func PossibleDynamicsAuthenticationTypeValues() []DynamicsAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *DynamicsAuthenticationType pointing to the current value.
+// ToPtr returns a *DynamicsAuthenticationType pointing to the current value.
 func (c DynamicsAuthenticationType) ToPtr() *DynamicsAuthenticationType {
 	return &c
 }
@@ -439,7 +439,7 @@ func PossibleDynamicsDeploymentTypeValues() []DynamicsDeploymentType {
 	}
 }
 
-// ToPtr() returns a *DynamicsDeploymentType pointing to the current value.
+// ToPtr returns a *DynamicsDeploymentType pointing to the current value.
 func (c DynamicsDeploymentType) ToPtr() *DynamicsDeploymentType {
 	return &c
 }
@@ -462,7 +462,7 @@ func PossibleDynamicsServicePrincipalCredentialTypeValues() []DynamicsServicePri
 	}
 }
 
-// ToPtr() returns a *DynamicsServicePrincipalCredentialType pointing to the current value.
+// ToPtr returns a *DynamicsServicePrincipalCredentialType pointing to the current value.
 func (c DynamicsServicePrincipalCredentialType) ToPtr() *DynamicsServicePrincipalCredentialType {
 	return &c
 }
@@ -481,7 +481,7 @@ func PossibleDynamicsSinkWriteBehaviorValues() []DynamicsSinkWriteBehavior {
 	}
 }
 
-// ToPtr() returns a *DynamicsSinkWriteBehavior pointing to the current value.
+// ToPtr returns a *DynamicsSinkWriteBehavior pointing to the current value.
 func (c DynamicsSinkWriteBehavior) ToPtr() *DynamicsSinkWriteBehavior {
 	return &c
 }
@@ -508,7 +508,7 @@ func PossibleEventSubscriptionStatusValues() []EventSubscriptionStatus {
 	}
 }
 
-// ToPtr() returns a *EventSubscriptionStatus pointing to the current value.
+// ToPtr returns a *EventSubscriptionStatus pointing to the current value.
 func (c EventSubscriptionStatus) ToPtr() *EventSubscriptionStatus {
 	return &c
 }
@@ -527,7 +527,7 @@ func PossibleExpressionTypeValues() []ExpressionType {
 	}
 }
 
-// ToPtr() returns a *ExpressionType pointing to the current value.
+// ToPtr returns a *ExpressionType pointing to the current value.
 func (c ExpressionType) ToPtr() *ExpressionType {
 	return &c
 }
@@ -548,7 +548,7 @@ func PossibleFtpAuthenticationTypeValues() []FtpAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *FtpAuthenticationType pointing to the current value.
+// ToPtr returns a *FtpAuthenticationType pointing to the current value.
 func (c FtpAuthenticationType) ToPtr() *FtpAuthenticationType {
 	return &c
 }
@@ -570,7 +570,7 @@ func PossibleGoogleAdWordsAuthenticationTypeValues() []GoogleAdWordsAuthenticati
 	}
 }
 
-// ToPtr() returns a *GoogleAdWordsAuthenticationType pointing to the current value.
+// ToPtr returns a *GoogleAdWordsAuthenticationType pointing to the current value.
 func (c GoogleAdWordsAuthenticationType) ToPtr() *GoogleAdWordsAuthenticationType {
 	return &c
 }
@@ -592,7 +592,7 @@ func PossibleGoogleBigQueryAuthenticationTypeValues() []GoogleBigQueryAuthentica
 	}
 }
 
-// ToPtr() returns a *GoogleBigQueryAuthenticationType pointing to the current value.
+// ToPtr returns a *GoogleBigQueryAuthenticationType pointing to the current value.
 func (c GoogleBigQueryAuthenticationType) ToPtr() *GoogleBigQueryAuthenticationType {
 	return &c
 }
@@ -613,7 +613,7 @@ func PossibleHBaseAuthenticationTypeValues() []HBaseAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *HBaseAuthenticationType pointing to the current value.
+// ToPtr returns a *HBaseAuthenticationType pointing to the current value.
 func (c HBaseAuthenticationType) ToPtr() *HBaseAuthenticationType {
 	return &c
 }
@@ -636,7 +636,7 @@ func PossibleHDInsightActivityDebugInfoOptionValues() []HDInsightActivityDebugIn
 	}
 }
 
-// ToPtr() returns a *HDInsightActivityDebugInfoOption pointing to the current value.
+// ToPtr returns a *HDInsightActivityDebugInfoOption pointing to the current value.
 func (c HDInsightActivityDebugInfoOption) ToPtr() *HDInsightActivityDebugInfoOption {
 	return &c
 }
@@ -663,7 +663,7 @@ func PossibleHTTPAuthenticationTypeValues() []HTTPAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *HTTPAuthenticationType pointing to the current value.
+// ToPtr returns a *HTTPAuthenticationType pointing to the current value.
 func (c HTTPAuthenticationType) ToPtr() *HTTPAuthenticationType {
 	return &c
 }
@@ -686,7 +686,7 @@ func PossibleHdiNodeTypesValues() []HdiNodeTypes {
 	}
 }
 
-// ToPtr() returns a *HdiNodeTypes pointing to the current value.
+// ToPtr returns a *HdiNodeTypes pointing to the current value.
 func (c HdiNodeTypes) ToPtr() *HdiNodeTypes {
 	return &c
 }
@@ -711,7 +711,7 @@ func PossibleHiveAuthenticationTypeValues() []HiveAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *HiveAuthenticationType pointing to the current value.
+// ToPtr returns a *HiveAuthenticationType pointing to the current value.
 func (c HiveAuthenticationType) ToPtr() *HiveAuthenticationType {
 	return &c
 }
@@ -734,7 +734,7 @@ func PossibleHiveServerTypeValues() []HiveServerType {
 	}
 }
 
-// ToPtr() returns a *HiveServerType pointing to the current value.
+// ToPtr returns a *HiveServerType pointing to the current value.
 func (c HiveServerType) ToPtr() *HiveServerType {
 	return &c
 }
@@ -757,7 +757,7 @@ func PossibleHiveThriftTransportProtocolValues() []HiveThriftTransportProtocol {
 	}
 }
 
-// ToPtr() returns a *HiveThriftTransportProtocol pointing to the current value.
+// ToPtr returns a *HiveThriftTransportProtocol pointing to the current value.
 func (c HiveThriftTransportProtocol) ToPtr() *HiveThriftTransportProtocol {
 	return &c
 }
@@ -780,7 +780,7 @@ func PossibleImpalaAuthenticationTypeValues() []ImpalaAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *ImpalaAuthenticationType pointing to the current value.
+// ToPtr returns a *ImpalaAuthenticationType pointing to the current value.
 func (c ImpalaAuthenticationType) ToPtr() *ImpalaAuthenticationType {
 	return &c
 }
@@ -801,7 +801,7 @@ func PossibleIntegrationRuntimeEditionValues() []IntegrationRuntimeEdition {
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeEdition pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeEdition pointing to the current value.
 func (c IntegrationRuntimeEdition) ToPtr() *IntegrationRuntimeEdition {
 	return &c
 }
@@ -822,7 +822,7 @@ func PossibleIntegrationRuntimeEntityReferenceTypeValues() []IntegrationRuntimeE
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeEntityReferenceType pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeEntityReferenceType pointing to the current value.
 func (c IntegrationRuntimeEntityReferenceType) ToPtr() *IntegrationRuntimeEntityReferenceType {
 	return &c
 }
@@ -843,7 +843,7 @@ func PossibleIntegrationRuntimeLicenseTypeValues() []IntegrationRuntimeLicenseTy
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeLicenseType pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeLicenseType pointing to the current value.
 func (c IntegrationRuntimeLicenseType) ToPtr() *IntegrationRuntimeLicenseType {
 	return &c
 }
@@ -862,7 +862,7 @@ func PossibleIntegrationRuntimeReferenceTypeValues() []IntegrationRuntimeReferen
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeReferenceType pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeReferenceType pointing to the current value.
 func (c IntegrationRuntimeReferenceType) ToPtr() *IntegrationRuntimeReferenceType {
 	return &c
 }
@@ -887,7 +887,7 @@ func PossibleIntegrationRuntimeSsisCatalogPricingTierValues() []IntegrationRunti
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeSsisCatalogPricingTier pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeSsisCatalogPricingTier pointing to the current value.
 func (c IntegrationRuntimeSsisCatalogPricingTier) ToPtr() *IntegrationRuntimeSsisCatalogPricingTier {
 	return &c
 }
@@ -924,7 +924,7 @@ func PossibleIntegrationRuntimeStateValues() []IntegrationRuntimeState {
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeState pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeState pointing to the current value.
 func (c IntegrationRuntimeState) ToPtr() *IntegrationRuntimeState {
 	return &c
 }
@@ -945,7 +945,7 @@ func PossibleIntegrationRuntimeTypeValues() []IntegrationRuntimeType {
 	}
 }
 
-// ToPtr() returns a *IntegrationRuntimeType pointing to the current value.
+// ToPtr returns a *IntegrationRuntimeType pointing to the current value.
 func (c IntegrationRuntimeType) ToPtr() *IntegrationRuntimeType {
 	return &c
 }
@@ -966,7 +966,7 @@ func PossibleJSONFormatFilePatternValues() []JSONFormatFilePattern {
 	}
 }
 
-// ToPtr() returns a *JSONFormatFilePattern pointing to the current value.
+// ToPtr returns a *JSONFormatFilePattern pointing to the current value.
 func (c JSONFormatFilePattern) ToPtr() *JSONFormatFilePattern {
 	return &c
 }
@@ -988,7 +988,7 @@ func PossibleJSONWriteFilePatternValues() []JSONWriteFilePattern {
 	}
 }
 
-// ToPtr() returns a *JSONWriteFilePattern pointing to the current value.
+// ToPtr returns a *JSONWriteFilePattern pointing to the current value.
 func (c JSONWriteFilePattern) ToPtr() *JSONWriteFilePattern {
 	return &c
 }
@@ -1009,7 +1009,7 @@ func PossibleMongoDbAuthenticationTypeValues() []MongoDbAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *MongoDbAuthenticationType pointing to the current value.
+// ToPtr returns a *MongoDbAuthenticationType pointing to the current value.
 func (c MongoDbAuthenticationType) ToPtr() *MongoDbAuthenticationType {
 	return &c
 }
@@ -1032,7 +1032,7 @@ func PossibleNetezzaPartitionOptionValues() []NetezzaPartitionOption {
 	}
 }
 
-// ToPtr() returns a *NetezzaPartitionOption pointing to the current value.
+// ToPtr returns a *NetezzaPartitionOption pointing to the current value.
 func (c NetezzaPartitionOption) ToPtr() *NetezzaPartitionOption {
 	return &c
 }
@@ -1063,7 +1063,7 @@ func PossibleNodeSizeValues() []NodeSize {
 	}
 }
 
-// ToPtr() returns a *NodeSize pointing to the current value.
+// ToPtr returns a *NodeSize pointing to the current value.
 func (c NodeSize) ToPtr() *NodeSize {
 	return &c
 }
@@ -1084,7 +1084,7 @@ func PossibleNodeSizeFamilyValues() []NodeSizeFamily {
 	}
 }
 
-// ToPtr() returns a *NodeSizeFamily pointing to the current value.
+// ToPtr returns a *NodeSizeFamily pointing to the current value.
 func (c NodeSizeFamily) ToPtr() *NodeSizeFamily {
 	return &c
 }
@@ -1103,7 +1103,7 @@ func PossibleNotebookReferenceTypeValues() []NotebookReferenceType {
 	}
 }
 
-// ToPtr() returns a *NotebookReferenceType pointing to the current value.
+// ToPtr returns a *NotebookReferenceType pointing to the current value.
 func (c NotebookReferenceType) ToPtr() *NotebookReferenceType {
 	return &c
 }
@@ -1124,7 +1124,7 @@ func PossibleODataAADServicePrincipalCredentialTypeValues() []ODataAADServicePri
 	}
 }
 
-// ToPtr() returns a *ODataAADServicePrincipalCredentialType pointing to the current value.
+// ToPtr returns a *ODataAADServicePrincipalCredentialType pointing to the current value.
 func (c ODataAADServicePrincipalCredentialType) ToPtr() *ODataAADServicePrincipalCredentialType {
 	return &c
 }
@@ -1151,7 +1151,7 @@ func PossibleODataAuthenticationTypeValues() []ODataAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *ODataAuthenticationType pointing to the current value.
+// ToPtr returns a *ODataAuthenticationType pointing to the current value.
 func (c ODataAuthenticationType) ToPtr() *ODataAuthenticationType {
 	return &c
 }
@@ -1174,7 +1174,7 @@ func PossibleOraclePartitionOptionValues() []OraclePartitionOption {
 	}
 }
 
-// ToPtr() returns a *OraclePartitionOption pointing to the current value.
+// ToPtr returns a *OraclePartitionOption pointing to the current value.
 func (c OraclePartitionOption) ToPtr() *OraclePartitionOption {
 	return &c
 }
@@ -1198,7 +1198,7 @@ func PossibleOrcCompressionCodecValues() []OrcCompressionCodec {
 	}
 }
 
-// ToPtr() returns a *OrcCompressionCodec pointing to the current value.
+// ToPtr returns a *OrcCompressionCodec pointing to the current value.
 func (c OrcCompressionCodec) ToPtr() *OrcCompressionCodec {
 	return &c
 }
@@ -1229,7 +1229,7 @@ func PossibleParameterTypeValues() []ParameterType {
 	}
 }
 
-// ToPtr() returns a *ParameterType pointing to the current value.
+// ToPtr returns a *ParameterType pointing to the current value.
 func (c ParameterType) ToPtr() *ParameterType {
 	return &c
 }
@@ -1253,7 +1253,7 @@ func PossibleParquetCompressionCodecEnumValues() []ParquetCompressionCodecEnum {
 	}
 }
 
-// ToPtr() returns a *ParquetCompressionCodecEnum pointing to the current value.
+// ToPtr returns a *ParquetCompressionCodecEnum pointing to the current value.
 func (c ParquetCompressionCodecEnum) ToPtr() *ParquetCompressionCodecEnum {
 	return &c
 }
@@ -1276,7 +1276,7 @@ func PossiblePhoenixAuthenticationTypeValues() []PhoenixAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *PhoenixAuthenticationType pointing to the current value.
+// ToPtr returns a *PhoenixAuthenticationType pointing to the current value.
 func (c PhoenixAuthenticationType) ToPtr() *PhoenixAuthenticationType {
 	return &c
 }
@@ -1295,7 +1295,7 @@ func PossiblePipelineReferenceTypeValues() []PipelineReferenceType {
 	}
 }
 
-// ToPtr() returns a *PipelineReferenceType pointing to the current value.
+// ToPtr returns a *PipelineReferenceType pointing to the current value.
 func (c PipelineReferenceType) ToPtr() *PipelineReferenceType {
 	return &c
 }
@@ -1325,7 +1325,7 @@ func PossiblePluginCurrentStateValues() []PluginCurrentState {
 	}
 }
 
-// ToPtr() returns a *PluginCurrentState pointing to the current value.
+// ToPtr returns a *PluginCurrentState pointing to the current value.
 func (c PluginCurrentState) ToPtr() *PluginCurrentState {
 	return &c
 }
@@ -1346,7 +1346,7 @@ func PossiblePolybaseSettingsRejectTypeValues() []PolybaseSettingsRejectType {
 	}
 }
 
-// ToPtr() returns a *PolybaseSettingsRejectType pointing to the current value.
+// ToPtr returns a *PolybaseSettingsRejectType pointing to the current value.
 func (c PolybaseSettingsRejectType) ToPtr() *PolybaseSettingsRejectType {
 	return &c
 }
@@ -1367,7 +1367,7 @@ func PossiblePrestoAuthenticationTypeValues() []PrestoAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *PrestoAuthenticationType pointing to the current value.
+// ToPtr returns a *PrestoAuthenticationType pointing to the current value.
 func (c PrestoAuthenticationType) ToPtr() *PrestoAuthenticationType {
 	return &c
 }
@@ -1398,7 +1398,7 @@ func PossibleRecurrenceFrequencyValues() []RecurrenceFrequency {
 	}
 }
 
-// ToPtr() returns a *RecurrenceFrequency pointing to the current value.
+// ToPtr returns a *RecurrenceFrequency pointing to the current value.
 func (c RecurrenceFrequency) ToPtr() *RecurrenceFrequency {
 	return &c
 }
@@ -1419,7 +1419,7 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 	}
 }
 
-// ToPtr() returns a *ResourceIdentityType pointing to the current value.
+// ToPtr returns a *ResourceIdentityType pointing to the current value.
 func (c ResourceIdentityType) ToPtr() *ResourceIdentityType {
 	return &c
 }
@@ -1444,7 +1444,7 @@ func PossibleRestServiceAuthenticationTypeValues() []RestServiceAuthenticationTy
 	}
 }
 
-// ToPtr() returns a *RestServiceAuthenticationType pointing to the current value.
+// ToPtr returns a *RestServiceAuthenticationType pointing to the current value.
 func (c RestServiceAuthenticationType) ToPtr() *RestServiceAuthenticationType {
 	return &c
 }
@@ -1487,7 +1487,7 @@ func PossibleRunQueryFilterOperandValues() []RunQueryFilterOperand {
 	}
 }
 
-// ToPtr() returns a *RunQueryFilterOperand pointing to the current value.
+// ToPtr returns a *RunQueryFilterOperand pointing to the current value.
 func (c RunQueryFilterOperand) ToPtr() *RunQueryFilterOperand {
 	return &c
 }
@@ -1512,7 +1512,7 @@ func PossibleRunQueryFilterOperatorValues() []RunQueryFilterOperator {
 	}
 }
 
-// ToPtr() returns a *RunQueryFilterOperator pointing to the current value.
+// ToPtr returns a *RunQueryFilterOperator pointing to the current value.
 func (c RunQueryFilterOperator) ToPtr() *RunQueryFilterOperator {
 	return &c
 }
@@ -1533,7 +1533,7 @@ func PossibleRunQueryOrderValues() []RunQueryOrder {
 	}
 }
 
-// ToPtr() returns a *RunQueryOrder pointing to the current value.
+// ToPtr returns a *RunQueryOrder pointing to the current value.
 func (c RunQueryOrder) ToPtr() *RunQueryOrder {
 	return &c
 }
@@ -1570,7 +1570,7 @@ func PossibleRunQueryOrderByFieldValues() []RunQueryOrderByField {
 	}
 }
 
-// ToPtr() returns a *RunQueryOrderByField pointing to the current value.
+// ToPtr returns a *RunQueryOrderByField pointing to the current value.
 func (c RunQueryOrderByField) ToPtr() *RunQueryOrderByField {
 	return &c
 }
@@ -1591,7 +1591,7 @@ func PossibleSQLConnectionTypeValues() []SQLConnectionType {
 	}
 }
 
-// ToPtr() returns a *SQLConnectionType pointing to the current value.
+// ToPtr returns a *SQLConnectionType pointing to the current value.
 func (c SQLConnectionType) ToPtr() *SQLConnectionType {
 	return &c
 }
@@ -1614,7 +1614,7 @@ func PossibleSQLPartitionOptionValues() []SQLPartitionOption {
 	}
 }
 
-// ToPtr() returns a *SQLPartitionOption pointing to the current value.
+// ToPtr returns a *SQLPartitionOption pointing to the current value.
 func (c SQLPartitionOption) ToPtr() *SQLPartitionOption {
 	return &c
 }
@@ -1633,7 +1633,7 @@ func PossibleSQLPoolReferenceTypeValues() []SQLPoolReferenceType {
 	}
 }
 
-// ToPtr() returns a *SQLPoolReferenceType pointing to the current value.
+// ToPtr returns a *SQLPoolReferenceType pointing to the current value.
 func (c SQLPoolReferenceType) ToPtr() *SQLPoolReferenceType {
 	return &c
 }
@@ -1652,7 +1652,7 @@ func PossibleSQLScriptTypeValues() []SQLScriptType {
 	}
 }
 
-// ToPtr() returns a *SQLScriptType pointing to the current value.
+// ToPtr returns a *SQLScriptType pointing to the current value.
 func (c SQLScriptType) ToPtr() *SQLScriptType {
 	return &c
 }
@@ -1673,7 +1673,7 @@ func PossibleSalesforceSinkWriteBehaviorValues() []SalesforceSinkWriteBehavior {
 	}
 }
 
-// ToPtr() returns a *SalesforceSinkWriteBehavior pointing to the current value.
+// ToPtr returns a *SalesforceSinkWriteBehavior pointing to the current value.
 func (c SalesforceSinkWriteBehavior) ToPtr() *SalesforceSinkWriteBehavior {
 	return &c
 }
@@ -1694,7 +1694,7 @@ func PossibleSalesforceSourceReadBehaviorValues() []SalesforceSourceReadBehavior
 	}
 }
 
-// ToPtr() returns a *SalesforceSourceReadBehavior pointing to the current value.
+// ToPtr returns a *SalesforceSourceReadBehavior pointing to the current value.
 func (c SalesforceSourceReadBehavior) ToPtr() *SalesforceSourceReadBehavior {
 	return &c
 }
@@ -1715,7 +1715,7 @@ func PossibleSapCloudForCustomerSinkWriteBehaviorValues() []SapCloudForCustomerS
 	}
 }
 
-// ToPtr() returns a *SapCloudForCustomerSinkWriteBehavior pointing to the current value.
+// ToPtr returns a *SapCloudForCustomerSinkWriteBehavior pointing to the current value.
 func (c SapCloudForCustomerSinkWriteBehavior) ToPtr() *SapCloudForCustomerSinkWriteBehavior {
 	return &c
 }
@@ -1736,7 +1736,7 @@ func PossibleSapHanaAuthenticationTypeValues() []SapHanaAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *SapHanaAuthenticationType pointing to the current value.
+// ToPtr returns a *SapHanaAuthenticationType pointing to the current value.
 func (c SapHanaAuthenticationType) ToPtr() *SapHanaAuthenticationType {
 	return &c
 }
@@ -1759,7 +1759,7 @@ func PossibleSapHanaPartitionOptionValues() []SapHanaPartitionOption {
 	}
 }
 
-// ToPtr() returns a *SapHanaPartitionOption pointing to the current value.
+// ToPtr returns a *SapHanaPartitionOption pointing to the current value.
 func (c SapHanaPartitionOption) ToPtr() *SapHanaPartitionOption {
 	return &c
 }
@@ -1788,7 +1788,7 @@ func PossibleSapTablePartitionOptionValues() []SapTablePartitionOption {
 	}
 }
 
-// ToPtr() returns a *SapTablePartitionOption pointing to the current value.
+// ToPtr returns a *SapTablePartitionOption pointing to the current value.
 func (c SapTablePartitionOption) ToPtr() *SapTablePartitionOption {
 	return &c
 }
@@ -1810,7 +1810,7 @@ func PossibleSchedulerCurrentStateValues() []SchedulerCurrentState {
 	}
 }
 
-// ToPtr() returns a *SchedulerCurrentState pointing to the current value.
+// ToPtr returns a *SchedulerCurrentState pointing to the current value.
 func (c SchedulerCurrentState) ToPtr() *SchedulerCurrentState {
 	return &c
 }
@@ -1831,7 +1831,7 @@ func PossibleServiceNowAuthenticationTypeValues() []ServiceNowAuthenticationType
 	}
 }
 
-// ToPtr() returns a *ServiceNowAuthenticationType pointing to the current value.
+// ToPtr returns a *ServiceNowAuthenticationType pointing to the current value.
 func (c ServiceNowAuthenticationType) ToPtr() *ServiceNowAuthenticationType {
 	return &c
 }
@@ -1852,7 +1852,7 @@ func PossibleSftpAuthenticationTypeValues() []SftpAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *SftpAuthenticationType pointing to the current value.
+// ToPtr returns a *SftpAuthenticationType pointing to the current value.
 func (c SftpAuthenticationType) ToPtr() *SftpAuthenticationType {
 	return &c
 }
@@ -1877,7 +1877,7 @@ func PossibleSparkAuthenticationTypeValues() []SparkAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *SparkAuthenticationType pointing to the current value.
+// ToPtr returns a *SparkAuthenticationType pointing to the current value.
 func (c SparkAuthenticationType) ToPtr() *SparkAuthenticationType {
 	return &c
 }
@@ -1902,7 +1902,7 @@ func PossibleSparkBatchJobResultTypeValues() []SparkBatchJobResultType {
 	}
 }
 
-// ToPtr() returns a *SparkBatchJobResultType pointing to the current value.
+// ToPtr returns a *SparkBatchJobResultType pointing to the current value.
 func (c SparkBatchJobResultType) ToPtr() *SparkBatchJobResultType {
 	return &c
 }
@@ -1926,7 +1926,7 @@ func PossibleSparkErrorSourceValues() []SparkErrorSource {
 	}
 }
 
-// ToPtr() returns a *SparkErrorSource pointing to the current value.
+// ToPtr returns a *SparkErrorSource pointing to the current value.
 func (c SparkErrorSource) ToPtr() *SparkErrorSource {
 	return &c
 }
@@ -1945,7 +1945,7 @@ func PossibleSparkJobReferenceTypeValues() []SparkJobReferenceType {
 	}
 }
 
-// ToPtr() returns a *SparkJobReferenceType pointing to the current value.
+// ToPtr returns a *SparkJobReferenceType pointing to the current value.
 func (c SparkJobReferenceType) ToPtr() *SparkJobReferenceType {
 	return &c
 }
@@ -1966,7 +1966,7 @@ func PossibleSparkJobTypeValues() []SparkJobType {
 	}
 }
 
-// ToPtr() returns a *SparkJobType pointing to the current value.
+// ToPtr returns a *SparkJobType pointing to the current value.
 func (c SparkJobType) ToPtr() *SparkJobType {
 	return &c
 }
@@ -1989,7 +1989,7 @@ func PossibleSparkServerTypeValues() []SparkServerType {
 	}
 }
 
-// ToPtr() returns a *SparkServerType pointing to the current value.
+// ToPtr returns a *SparkServerType pointing to the current value.
 func (c SparkServerType) ToPtr() *SparkServerType {
 	return &c
 }
@@ -2012,7 +2012,7 @@ func PossibleSparkThriftTransportProtocolValues() []SparkThriftTransportProtocol
 	}
 }
 
-// ToPtr() returns a *SparkThriftTransportProtocol pointing to the current value.
+// ToPtr returns a *SparkThriftTransportProtocol pointing to the current value.
 func (c SparkThriftTransportProtocol) ToPtr() *SparkThriftTransportProtocol {
 	return &c
 }
@@ -2031,7 +2031,7 @@ func PossibleSsisLogLocationTypeValues() []SsisLogLocationType {
 	}
 }
 
-// ToPtr() returns a *SsisLogLocationType pointing to the current value.
+// ToPtr returns a *SsisLogLocationType pointing to the current value.
 func (c SsisLogLocationType) ToPtr() *SsisLogLocationType {
 	return &c
 }
@@ -2056,7 +2056,7 @@ func PossibleSsisPackageLocationTypeValues() []SsisPackageLocationType {
 	}
 }
 
-// ToPtr() returns a *SsisPackageLocationType pointing to the current value.
+// ToPtr returns a *SsisPackageLocationType pointing to the current value.
 func (c SsisPackageLocationType) ToPtr() *SsisPackageLocationType {
 	return &c
 }
@@ -2087,7 +2087,7 @@ func PossibleStoredProcedureParameterTypeValues() []StoredProcedureParameterType
 	}
 }
 
-// ToPtr() returns a *StoredProcedureParameterType pointing to the current value.
+// ToPtr returns a *StoredProcedureParameterType pointing to the current value.
 func (c StoredProcedureParameterType) ToPtr() *StoredProcedureParameterType {
 	return &c
 }
@@ -2108,7 +2108,7 @@ func PossibleSybaseAuthenticationTypeValues() []SybaseAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *SybaseAuthenticationType pointing to the current value.
+// ToPtr returns a *SybaseAuthenticationType pointing to the current value.
 func (c SybaseAuthenticationType) ToPtr() *SybaseAuthenticationType {
 	return &c
 }
@@ -2129,7 +2129,7 @@ func PossibleTeradataAuthenticationTypeValues() []TeradataAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *TeradataAuthenticationType pointing to the current value.
+// ToPtr returns a *TeradataAuthenticationType pointing to the current value.
 func (c TeradataAuthenticationType) ToPtr() *TeradataAuthenticationType {
 	return &c
 }
@@ -2152,7 +2152,7 @@ func PossibleTeradataPartitionOptionValues() []TeradataPartitionOption {
 	}
 }
 
-// ToPtr() returns a *TeradataPartitionOption pointing to the current value.
+// ToPtr returns a *TeradataPartitionOption pointing to the current value.
 func (c TeradataPartitionOption) ToPtr() *TeradataPartitionOption {
 	return &c
 }
@@ -2171,7 +2171,7 @@ func PossibleTriggerReferenceTypeValues() []TriggerReferenceType {
 	}
 }
 
-// ToPtr() returns a *TriggerReferenceType pointing to the current value.
+// ToPtr returns a *TriggerReferenceType pointing to the current value.
 func (c TriggerReferenceType) ToPtr() *TriggerReferenceType {
 	return &c
 }
@@ -2194,7 +2194,7 @@ func PossibleTriggerRunStatusValues() []TriggerRunStatus {
 	}
 }
 
-// ToPtr() returns a *TriggerRunStatus pointing to the current value.
+// ToPtr returns a *TriggerRunStatus pointing to the current value.
 func (c TriggerRunStatus) ToPtr() *TriggerRunStatus {
 	return &c
 }
@@ -2217,7 +2217,7 @@ func PossibleTriggerRuntimeStateValues() []TriggerRuntimeState {
 	}
 }
 
-// ToPtr() returns a *TriggerRuntimeState pointing to the current value.
+// ToPtr returns a *TriggerRuntimeState pointing to the current value.
 func (c TriggerRuntimeState) ToPtr() *TriggerRuntimeState {
 	return &c
 }
@@ -2240,7 +2240,7 @@ func PossibleTumblingWindowFrequencyValues() []TumblingWindowFrequency {
 	}
 }
 
-// ToPtr() returns a *TumblingWindowFrequency pointing to the current value.
+// ToPtr returns a *TumblingWindowFrequency pointing to the current value.
 func (c TumblingWindowFrequency) ToPtr() *TumblingWindowFrequency {
 	return &c
 }
@@ -2259,7 +2259,7 @@ func PossibleTypeValues() []Type {
 	}
 }
 
-// ToPtr() returns a *Type pointing to the current value.
+// ToPtr returns a *Type pointing to the current value.
 func (c Type) ToPtr() *Type {
 	return &c
 }
@@ -2284,7 +2284,7 @@ func PossibleVariableTypeValues() []VariableType {
 	}
 }
 
-// ToPtr() returns a *VariableType pointing to the current value.
+// ToPtr returns a *VariableType pointing to the current value.
 func (c VariableType) ToPtr() *VariableType {
 	return &c
 }
@@ -2309,7 +2309,7 @@ func PossibleWebActivityMethodValues() []WebActivityMethod {
 	}
 }
 
-// ToPtr() returns a *WebActivityMethod pointing to the current value.
+// ToPtr returns a *WebActivityMethod pointing to the current value.
 func (c WebActivityMethod) ToPtr() *WebActivityMethod {
 	return &c
 }
@@ -2332,7 +2332,7 @@ func PossibleWebAuthenticationTypeValues() []WebAuthenticationType {
 	}
 }
 
-// ToPtr() returns a *WebAuthenticationType pointing to the current value.
+// ToPtr returns a *WebAuthenticationType pointing to the current value.
 func (c WebAuthenticationType) ToPtr() *WebAuthenticationType {
 	return &c
 }
@@ -2351,7 +2351,7 @@ func PossibleWebHookActivityMethodValues() []WebHookActivityMethod {
 	}
 }
 
-// ToPtr() returns a *WebHookActivityMethod pointing to the current value.
+// ToPtr returns a *WebHookActivityMethod pointing to the current value.
 func (c WebHookActivityMethod) ToPtr() *WebHookActivityMethod {
 	return &c
 }

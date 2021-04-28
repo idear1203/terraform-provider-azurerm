@@ -74,7 +74,7 @@ func (client *LibraryClient) appendCreateRequest(ctx context.Context, libraryNam
 func (client *LibraryClient) appendHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -104,14 +104,26 @@ func (client *LibraryClient) BeginCreate(ctx context.Context, libraryName string
 
 // ResumeCreate creates a new LibraryResourceInfoPoller from the specified resume token.
 // token - The value must come from a previous call to LibraryResourceInfoPoller.ResumeToken().
-func (client *LibraryClient) ResumeCreate(token string) (LibraryResourceInfoPoller, error) {
+func (client *LibraryClient) ResumeCreate(ctx context.Context, token string) (LibraryResourceInfoPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("LibraryClient.Create", token, client.con.Pipeline(), client.createHandleError)
 	if err != nil {
-		return nil, err
+		return LibraryResourceInfoPollerResponse{}, err
 	}
-	return &libraryResourceInfoPoller{
+	poller := &libraryResourceInfoPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return LibraryResourceInfoPollerResponse{}, err
+	}
+	result := LibraryResourceInfoPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (LibraryResourceInfoResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // Create - Creates a library with the library name.
@@ -162,7 +174,7 @@ func (client *LibraryClient) createHandleResponse(resp *azcore.Response) (Librar
 func (client *LibraryClient) createHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -192,14 +204,26 @@ func (client *LibraryClient) BeginDelete(ctx context.Context, libraryName string
 
 // ResumeDelete creates a new LibraryResourceInfoPoller from the specified resume token.
 // token - The value must come from a previous call to LibraryResourceInfoPoller.ResumeToken().
-func (client *LibraryClient) ResumeDelete(token string) (LibraryResourceInfoPoller, error) {
+func (client *LibraryClient) ResumeDelete(ctx context.Context, token string) (LibraryResourceInfoPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("LibraryClient.Delete", token, client.con.Pipeline(), client.deleteHandleError)
 	if err != nil {
-		return nil, err
+		return LibraryResourceInfoPollerResponse{}, err
 	}
-	return &libraryResourceInfoPoller{
+	poller := &libraryResourceInfoPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return LibraryResourceInfoPollerResponse{}, err
+	}
+	result := LibraryResourceInfoPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (LibraryResourceInfoResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // Delete - Delete Library
@@ -250,7 +274,7 @@ func (client *LibraryClient) deleteHandleResponse(resp *azcore.Response) (Librar
 func (client *LibraryClient) deleteHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -280,14 +304,26 @@ func (client *LibraryClient) BeginFlush(ctx context.Context, libraryName string,
 
 // ResumeFlush creates a new LibraryResourceInfoPoller from the specified resume token.
 // token - The value must come from a previous call to LibraryResourceInfoPoller.ResumeToken().
-func (client *LibraryClient) ResumeFlush(token string) (LibraryResourceInfoPoller, error) {
+func (client *LibraryClient) ResumeFlush(ctx context.Context, token string) (LibraryResourceInfoPollerResponse, error) {
 	pt, err := azcore.NewLROPollerFromResumeToken("LibraryClient.Flush", token, client.con.Pipeline(), client.flushHandleError)
 	if err != nil {
-		return nil, err
+		return LibraryResourceInfoPollerResponse{}, err
 	}
-	return &libraryResourceInfoPoller{
+	poller := &libraryResourceInfoPoller{
 		pt: pt,
-	}, nil
+	}
+	resp, err := poller.Poll(ctx)
+	if err != nil {
+		return LibraryResourceInfoPollerResponse{}, err
+	}
+	result := LibraryResourceInfoPollerResponse{
+		RawResponse: resp,
+	}
+	result.Poller = poller
+	result.PollUntilDone = func(ctx context.Context, frequency time.Duration) (LibraryResourceInfoResponse, error) {
+		return poller.pollUntilDone(ctx, frequency)
+	}
+	return result, nil
 }
 
 // Flush - Flush Library
@@ -338,7 +374,7 @@ func (client *LibraryClient) flushHandleResponse(resp *azcore.Response) (Library
 func (client *LibraryClient) flushHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -391,7 +427,7 @@ func (client *LibraryClient) getHandleResponse(resp *azcore.Response) (LibraryRe
 func (client *LibraryClient) getHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -456,7 +492,7 @@ func (client *LibraryClient) getOperationResultHandleResponse(resp *azcore.Respo
 func (client *LibraryClient) getOperationResultHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -505,7 +541,7 @@ func (client *LibraryClient) listHandleResponse(resp *azcore.Response) (LibraryL
 func (client *LibraryClient) listHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

@@ -242,13 +242,12 @@ JSON
 
 func (r PipelineResource) activities(data acceptance.TestData) string {
 	template := r.template(data)
-	template = ""
 	return fmt.Sprintf(`
 	%s
 
 resource "azurerm_synapse_pipeline" "test" {
   name                 = "acctest%d"
-  synapse_workspace_id = "/subscriptions/051ddeca-1ed6-4d8b-ba6f-1ff561e5f3b3/resourceGroups/acctestRG-synapse-210413022341932035/providers/Microsoft.Synapse/workspaces/acctestsw210413022341932035"
+  synapse_workspace_id = azurerm_synapse_workspace.test.id
   variables = {
     "bob" = "item1"
   }
@@ -266,6 +265,8 @@ resource "azurerm_synapse_pipeline" "test" {
   }
 ]
 JSON
+
+  depends_on = [azurerm_synapse_firewall_rule.test]
 }
 `, template, data.RandomInteger)
 }

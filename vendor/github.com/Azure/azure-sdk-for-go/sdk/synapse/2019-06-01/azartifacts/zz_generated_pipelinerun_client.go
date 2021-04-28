@@ -70,7 +70,7 @@ func (client *PipelineRunClient) cancelPipelineRunCreateRequest(ctx context.Cont
 func (client *PipelineRunClient) cancelPipelineRunHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -123,7 +123,7 @@ func (client *PipelineRunClient) getPipelineRunHandleResponse(resp *azcore.Respo
 func (client *PipelineRunClient) getPipelineRunHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -180,7 +180,7 @@ func (client *PipelineRunClient) queryActivityRunsHandleResponse(resp *azcore.Re
 func (client *PipelineRunClient) queryActivityRunsHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }
@@ -229,7 +229,7 @@ func (client *PipelineRunClient) queryPipelineRunsByWorkspaceHandleResponse(resp
 func (client *PipelineRunClient) queryPipelineRunsByWorkspaceHandleError(resp *azcore.Response) error {
 	var err CloudError
 	if err := resp.UnmarshalAsJSON(&err.InnerError); err != nil {
-		return err
+		return azcore.NewResponseError(resp.UnmarshalError(err), resp.Response)
 	}
 	return azcore.NewResponseError(&err, resp.Response)
 }

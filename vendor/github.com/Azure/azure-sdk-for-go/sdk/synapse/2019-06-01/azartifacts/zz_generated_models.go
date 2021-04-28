@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"net/http"
+	"reflect"
 	"time"
 )
 
@@ -1477,6 +1478,41 @@ type AzureBatchLinkedServiceTypeProperties struct {
 
 	// The Azure Batch pool name. Type: string (or Expression with resultType string).
 	PoolName interface{} `json:"poolName,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureBatchLinkedServiceTypeProperties.
+func (a *AzureBatchLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "accessKey":
+			a.AccessKey, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "accountName":
+			err = unpopulate(val, &a.AccountName)
+			delete(rawMsg, key)
+		case "batchUri":
+			err = unpopulate(val, &a.BatchURI)
+			delete(rawMsg, key)
+		case "encryptedCredential":
+			err = unpopulate(val, &a.EncryptedCredential)
+			delete(rawMsg, key)
+		case "linkedServiceName":
+			err = unpopulate(val, &a.LinkedServiceName)
+			delete(rawMsg, key)
+		case "poolName":
+			err = unpopulate(val, &a.PoolName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // AzureBlobDataset - The Azure Blob storage.
@@ -3639,6 +3675,53 @@ type AzureFileStorageLinkedServiceTypeProperties struct {
 
 	// User ID to logon the server. Type: string (or Expression with resultType string).
 	UserID interface{} `json:"userId,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureFileStorageLinkedServiceTypeProperties.
+func (a *AzureFileStorageLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "accountKey":
+			err = unpopulate(val, &a.AccountKey)
+			delete(rawMsg, key)
+		case "connectionString":
+			err = unpopulate(val, &a.ConnectionString)
+			delete(rawMsg, key)
+		case "encryptedCredential":
+			err = unpopulate(val, &a.EncryptedCredential)
+			delete(rawMsg, key)
+		case "fileShare":
+			err = unpopulate(val, &a.FileShare)
+			delete(rawMsg, key)
+		case "host":
+			err = unpopulate(val, &a.Host)
+			delete(rawMsg, key)
+		case "password":
+			a.Password, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "sasToken":
+			err = unpopulate(val, &a.SasToken)
+			delete(rawMsg, key)
+		case "sasUri":
+			err = unpopulate(val, &a.SasURI)
+			delete(rawMsg, key)
+		case "snapshot":
+			err = unpopulate(val, &a.Snapshot)
+			delete(rawMsg, key)
+		case "userId":
+			err = unpopulate(val, &a.UserID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // AzureFileStorageLocation - The location of file server dataset.
@@ -7240,6 +7323,68 @@ type CopyActivityTypeProperties struct {
 
 	// Whether to enable Data Consistency validation. Type: boolean (or Expression with resultType boolean).
 	ValidateDataConsistency interface{} `json:"validateDataConsistency,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CopyActivityTypeProperties.
+func (c *CopyActivityTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "dataIntegrationUnits":
+			err = unpopulate(val, &c.DataIntegrationUnits)
+			delete(rawMsg, key)
+		case "enableSkipIncompatibleRow":
+			err = unpopulate(val, &c.EnableSkipIncompatibleRow)
+			delete(rawMsg, key)
+		case "enableStaging":
+			err = unpopulate(val, &c.EnableStaging)
+			delete(rawMsg, key)
+		case "logSettings":
+			err = unpopulate(val, &c.LogSettings)
+			delete(rawMsg, key)
+		case "logStorageSettings":
+			err = unpopulate(val, &c.LogStorageSettings)
+			delete(rawMsg, key)
+		case "parallelCopies":
+			err = unpopulate(val, &c.ParallelCopies)
+			delete(rawMsg, key)
+		case "preserve":
+			err = unpopulate(val, &c.Preserve)
+			delete(rawMsg, key)
+		case "preserveRules":
+			err = unpopulate(val, &c.PreserveRules)
+			delete(rawMsg, key)
+		case "redirectIncompatibleRowSettings":
+			err = unpopulate(val, &c.RedirectIncompatibleRowSettings)
+			delete(rawMsg, key)
+		case "sink":
+			c.Sink, err = unmarshalCopySinkClassification(val)
+			delete(rawMsg, key)
+		case "skipErrorFile":
+			err = unpopulate(val, &c.SkipErrorFile)
+			delete(rawMsg, key)
+		case "source":
+			c.Source, err = unmarshalCopySourceClassification(val)
+			delete(rawMsg, key)
+		case "stagingSettings":
+			err = unpopulate(val, &c.StagingSettings)
+			delete(rawMsg, key)
+		case "translator":
+			err = unpopulate(val, &c.Translator)
+			delete(rawMsg, key)
+		case "validateDataConsistency":
+			err = unpopulate(val, &c.ValidateDataConsistency)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // CopySinkClassification provides polymorphic access to related types.
@@ -14287,6 +14432,47 @@ type HDInsightLinkedServiceTypeProperties struct {
 	UserName interface{} `json:"userName,omitempty"`
 }
 
+// UnmarshalJSON implements the json.Unmarshaller interface for type HDInsightLinkedServiceTypeProperties.
+func (h *HDInsightLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "clusterUri":
+			err = unpopulate(val, &h.ClusterURI)
+			delete(rawMsg, key)
+		case "encryptedCredential":
+			err = unpopulate(val, &h.EncryptedCredential)
+			delete(rawMsg, key)
+		case "fileSystem":
+			err = unpopulate(val, &h.FileSystem)
+			delete(rawMsg, key)
+		case "hcatalogLinkedServiceName":
+			err = unpopulate(val, &h.HcatalogLinkedServiceName)
+			delete(rawMsg, key)
+		case "isEspEnabled":
+			err = unpopulate(val, &h.IsEspEnabled)
+			delete(rawMsg, key)
+		case "linkedServiceName":
+			err = unpopulate(val, &h.LinkedServiceName)
+			delete(rawMsg, key)
+		case "password":
+			h.Password, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "userName":
+			err = unpopulate(val, &h.UserName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // HDInsightMapReduceActivity - HDInsight MapReduce activity type.
 type HDInsightMapReduceActivity struct {
 	ExecutionActivity
@@ -14488,6 +14674,122 @@ type HDInsightOnDemandLinkedServiceTypeProperties struct {
 
 	// Specifies the size of the Zoo Keeper node for the HDInsight cluster.
 	ZookeeperNodeSize interface{} `json:"zookeeperNodeSize,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type HDInsightOnDemandLinkedServiceTypeProperties.
+func (h *HDInsightOnDemandLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "additionalLinkedServiceNames":
+			err = unpopulate(val, &h.AdditionalLinkedServiceNames)
+			delete(rawMsg, key)
+		case "clusterNamePrefix":
+			err = unpopulate(val, &h.ClusterNamePrefix)
+			delete(rawMsg, key)
+		case "clusterPassword":
+			h.ClusterPassword, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "clusterResourceGroup":
+			err = unpopulate(val, &h.ClusterResourceGroup)
+			delete(rawMsg, key)
+		case "clusterSshPassword":
+			h.ClusterSSHPassword, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "clusterSshUserName":
+			err = unpopulate(val, &h.ClusterSSHUserName)
+			delete(rawMsg, key)
+		case "clusterSize":
+			err = unpopulate(val, &h.ClusterSize)
+			delete(rawMsg, key)
+		case "clusterType":
+			err = unpopulate(val, &h.ClusterType)
+			delete(rawMsg, key)
+		case "clusterUserName":
+			err = unpopulate(val, &h.ClusterUserName)
+			delete(rawMsg, key)
+		case "coreConfiguration":
+			err = unpopulate(val, &h.CoreConfiguration)
+			delete(rawMsg, key)
+		case "dataNodeSize":
+			err = unpopulate(val, &h.DataNodeSize)
+			delete(rawMsg, key)
+		case "encryptedCredential":
+			err = unpopulate(val, &h.EncryptedCredential)
+			delete(rawMsg, key)
+		case "hBaseConfiguration":
+			err = unpopulate(val, &h.HBaseConfiguration)
+			delete(rawMsg, key)
+		case "hcatalogLinkedServiceName":
+			err = unpopulate(val, &h.HcatalogLinkedServiceName)
+			delete(rawMsg, key)
+		case "hdfsConfiguration":
+			err = unpopulate(val, &h.HdfsConfiguration)
+			delete(rawMsg, key)
+		case "headNodeSize":
+			err = unpopulate(val, &h.HeadNodeSize)
+			delete(rawMsg, key)
+		case "hiveConfiguration":
+			err = unpopulate(val, &h.HiveConfiguration)
+			delete(rawMsg, key)
+		case "hostSubscriptionId":
+			err = unpopulate(val, &h.HostSubscriptionID)
+			delete(rawMsg, key)
+		case "linkedServiceName":
+			err = unpopulate(val, &h.LinkedServiceName)
+			delete(rawMsg, key)
+		case "mapReduceConfiguration":
+			err = unpopulate(val, &h.MapReduceConfiguration)
+			delete(rawMsg, key)
+		case "oozieConfiguration":
+			err = unpopulate(val, &h.OozieConfiguration)
+			delete(rawMsg, key)
+		case "scriptActions":
+			err = unpopulate(val, &h.ScriptActions)
+			delete(rawMsg, key)
+		case "servicePrincipalId":
+			err = unpopulate(val, &h.ServicePrincipalID)
+			delete(rawMsg, key)
+		case "servicePrincipalKey":
+			h.ServicePrincipalKey, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "sparkVersion":
+			err = unpopulate(val, &h.SparkVersion)
+			delete(rawMsg, key)
+		case "stormConfiguration":
+			err = unpopulate(val, &h.StormConfiguration)
+			delete(rawMsg, key)
+		case "subnetName":
+			err = unpopulate(val, &h.SubnetName)
+			delete(rawMsg, key)
+		case "tenant":
+			err = unpopulate(val, &h.Tenant)
+			delete(rawMsg, key)
+		case "timeToLive":
+			err = unpopulate(val, &h.TimeToLive)
+			delete(rawMsg, key)
+		case "version":
+			err = unpopulate(val, &h.Version)
+			delete(rawMsg, key)
+		case "virtualNetworkId":
+			err = unpopulate(val, &h.VirtualNetworkID)
+			delete(rawMsg, key)
+		case "yarnConfiguration":
+			err = unpopulate(val, &h.YarnConfiguration)
+			delete(rawMsg, key)
+		case "zookeeperNodeSize":
+			err = unpopulate(val, &h.ZookeeperNodeSize)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // HDInsightPigActivity - HDInsight Pig activity type.
@@ -17953,6 +18255,32 @@ type LookupActivityTypeProperties struct {
 
 	// Dataset-specific source properties, same as copy activity source.
 	Source CopySourceClassification `json:"source,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LookupActivityTypeProperties.
+func (l *LookupActivityTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "dataset":
+			err = unpopulate(val, &l.Dataset)
+			delete(rawMsg, key)
+		case "firstRowOnly":
+			err = unpopulate(val, &l.FirstRowOnly)
+			delete(rawMsg, key)
+		case "source":
+			l.Source, err = unmarshalCopySourceClassification(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // MagentoLinkedService - Magento server linked service.
@@ -21944,6 +22272,47 @@ type Pipeline struct {
 	Variables *map[string]*VariableSpecification `json:"variables,omitempty"`
 }
 
+// UnmarshalJSON implements the json.Unmarshaller interface for type Pipeline.
+func (p *Pipeline) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "activities":
+			p.Activities, err = unmarshalActivityClassificationArray(val)
+			delete(rawMsg, key)
+		case "annotations":
+			err = unpopulate(val, &p.Annotations)
+			delete(rawMsg, key)
+		case "concurrency":
+			err = unpopulate(val, &p.Concurrency)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, &p.Description)
+			delete(rawMsg, key)
+		case "folder":
+			err = unpopulate(val, &p.Folder)
+			delete(rawMsg, key)
+		case "parameters":
+			err = unpopulate(val, &p.Parameters)
+			delete(rawMsg, key)
+		case "runDimensions":
+			err = unpopulate(val, &p.RunDimensions)
+			delete(rawMsg, key)
+		case "variables":
+			err = unpopulate(val, &p.Variables)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // PipelineBeginCreateOrUpdatePipelineOptions contains the optional parameters for the Pipeline.BeginCreateOrUpdatePipeline method.
 type PipelineBeginCreateOrUpdatePipelineOptions struct {
 	// ETag of the pipeline entity. Should only be specified for update, for which it should match existing entity or can be * for unconditional update.
@@ -25439,6 +25808,47 @@ type SSISPackageLocationTypeProperties struct {
 
 	// Password of the package.
 	PackagePassword SecretBaseClassification `json:"packagePassword,omitempty"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SSISPackageLocationTypeProperties.
+func (s *SSISPackageLocationTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]*json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "accessCredential":
+			err = unpopulate(val, &s.AccessCredential)
+			delete(rawMsg, key)
+		case "childPackages":
+			err = unpopulate(val, &s.ChildPackages)
+			delete(rawMsg, key)
+		case "configurationAccessCredential":
+			err = unpopulate(val, &s.ConfigurationAccessCredential)
+			delete(rawMsg, key)
+		case "configurationPath":
+			err = unpopulate(val, &s.ConfigurationPath)
+			delete(rawMsg, key)
+		case "packageContent":
+			err = unpopulate(val, &s.PackageContent)
+			delete(rawMsg, key)
+		case "packageLastModifiedDate":
+			err = unpopulate(val, &s.PackageLastModifiedDate)
+			delete(rawMsg, key)
+		case "packageName":
+			err = unpopulate(val, &s.PackageName)
+			delete(rawMsg, key)
+		case "packagePassword":
+			s.PackagePassword, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // SSISPropertyOverride - SSIS property override.
@@ -33097,10 +33507,9 @@ func (z *ZohoSource) UnmarshalJSON(data []byte) error {
 func populate(m map[string]interface{}, k string, v interface{}) {
 	if v == nil {
 		return
-	}
-	if azcore.IsNullValue(v) {
+	} else if azcore.IsNullValue(v) {
 		m[k] = nil
-	} else {
+	} else if !reflect.ValueOf(v).IsNil() {
 		m[k] = v
 	}
 }
