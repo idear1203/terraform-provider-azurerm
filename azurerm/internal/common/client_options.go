@@ -5,6 +5,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/hashicorp/go-azure-helpers/sender"
@@ -34,6 +36,9 @@ type ClientOptions struct {
 	Environment                 azure.Environment
 	Features                    features.UserFeatures
 	StorageUseAzureAD           bool
+
+	// Track 2
+	Cred azcore.Credential
 }
 
 func (o ClientOptions) ConfigureClient(c *autorest.Client, authorizer autorest.Authorizer) {

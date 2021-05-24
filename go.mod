@@ -2,6 +2,8 @@ module github.com/terraform-providers/terraform-provider-azurerm
 
 require (
 	github.com/Azure/azure-sdk-for-go v54.2.0+incompatible
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v0.16.1
+	github.com/Azure/azure-sdk-for-go/sdk/synapse/azartifacts v0.1.0
 	github.com/Azure/go-autorest/autorest v0.11.18
 	github.com/Azure/go-autorest/autorest/date v0.3.0
 	github.com/Azure/go-autorest/autorest/validation v0.3.1
@@ -27,5 +29,7 @@ require (
 	golang.org/x/net v0.0.0-20210326060303-6b1517762897
 	gopkg.in/yaml.v2 v2.3.0
 )
+
+replace github.com/hashicorp/go-azure-helpers => github.com/ArcturusZhang/go-azure-helpers v0.16.1
 
 go 1.16
